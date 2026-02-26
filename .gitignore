@@ -1,0 +1,8 @@
+.env
+*.pdf
+crr.html
+.venv/
+.claude/
+__pycache__/
+*.pyc
+*.pyo

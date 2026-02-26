@@ -1,0 +1,9 @@
+flask
+gunicorn
+openai
+psycopg2-binary
+pgvector
+python-dotenv
+beautifulsoup4
+lxml
+langchain-text-splitters
