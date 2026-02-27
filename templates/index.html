@@ -353,6 +353,28 @@
       </select>
     </div>
 
+    <div class="setting-group">
+      <label>Query Rewriting</label>
+      <div class="toggle-row">
+        <label class="toggle-switch">
+          <input type="checkbox" id="query-rewrite-toggle" onchange="updatePills()"/>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">✏️ Expand terms</span>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <label>HyDE Search</label>
+      <div class="toggle-row">
+        <label class="toggle-switch">
+          <input type="checkbox" id="hyde-toggle" checked onchange="updatePills()"/>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">💡 Hypothetical doc</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -399,10 +421,12 @@
 
   function getSettings() {
     return {
-      model:      document.getElementById("model-select").value,
-      top_k:      parseInt(document.getElementById("topk-select").value),
-      deep_think: document.getElementById("deep-think-toggle").checked,
-      iterations: parseInt(document.getElementById("iterations-select").value),
+      model:         document.getElementById("model-select").value,
+      top_k:         parseInt(document.getElementById("topk-select").value),
+      deep_think:    document.getElementById("deep-think-toggle").checked,
+      iterations:    parseInt(document.getElementById("iterations-select").value),
+      query_rewrite: document.getElementById("query-rewrite-toggle").checked,
+      hyde:          document.getElementById("hyde-toggle").checked,
     };
   }
 
@@ -416,7 +440,9 @@
     const el  = document.getElementById("settings-summary-pills");
     let pills = `<span class="pill">${getModelLabel(s.model)}</span>
                  <span class="pill">top-${s.top_k}</span>`;
-    if (s.deep_think) pills += `<span class="pill deep">🧠 ×${s.iterations}</span>`;
+    if (s.deep_think)    pills += `<span class="pill deep">🧠 ×${s.iterations}</span>`;
+    if (s.query_rewrite) pills += `<span class="pill">✏️ Rewrite</span>`;
+    if (s.hyde)          pills += `<span class="pill">💡 HyDE</span>`;
     el.innerHTML = pills;
   }
   updatePills();  // init on load

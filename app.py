@@ -45,8 +45,10 @@ def chat():
     question   = data.get("message", "").strip()
     model      = data.get("model", "gpt-4o-mini")
     top_k      = max(1, min(int(data.get("top_k", 5)), 20))
-    deep_think = bool(data.get("deep_think", False))
-    iterations = max(1, min(int(data.get("iterations", 2)), 5))
+    deep_think    = bool(data.get("deep_think", False))
+    iterations    = max(1, min(int(data.get("iterations", 2)), 5))
+    query_rewrite = bool(data.get("query_rewrite", False))
+    hyde          = bool(data.get("hyde", True))
 
     if not question:
         return jsonify({"error": "Empty message"}), 400
@@ -58,9 +60,11 @@ def chat():
 
     try:
         if deep_think:
-            result = deep_think_ask(question, model=model, top_k=top_k, iterations=iterations)
+            result = deep_think_ask(question, model=model, top_k=top_k, iterations=iterations,
+                                    query_rewrite=query_rewrite, hyde=hyde)
         else:
-            result = ask(question, model=model, top_k=top_k)
+            result = ask(question, model=model, top_k=top_k,
+                         query_rewrite=query_rewrite, hyde=hyde)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
