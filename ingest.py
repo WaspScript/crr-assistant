@@ -8,7 +8,7 @@ from openai import OpenAI
 import psycopg2
 from pgvector.psycopg2 import register_vector
 
-load_dotenv(override=True)
+load_dotenv(override=False)  # don't override env vars already set in the shell
 
 DB_URL = os.getenv("DATABASE_URL")
 HTML_PATH = "crr.html"
