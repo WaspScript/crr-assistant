@@ -243,8 +243,8 @@ def deep_think_ask(question: str, model: str = "gpt-4o-mini", top_k: int = 5,
             follow_up_queries = []
 
         for q in follow_up_queries:
-            # Follow-up queries: apply HyDE if enabled, skip query_rewrite (already formal)
-            new_chunks, _ = retrieve(q, top_k, query_rewrite=False, hyde=hyde)
+            # Follow-up queries are already in formal regulatory language → no HyDE/rewrite needed
+            new_chunks, _ = retrieve(q, top_k, query_rewrite=False, hyde=False)
             found = add_unique(new_chunks)
             search_log.append({"query": q, "chunks_found": found})
 
