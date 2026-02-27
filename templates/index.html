@@ -12,7 +12,8 @@
       background: #f0f2f5;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      height: 100vh;        /* fallback for older browsers */
+      height: 100dvh;       /* dynamic viewport height: accounts for mobile browser chrome */
       overflow: hidden;
     }
 
