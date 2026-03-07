@@ -17,10 +17,20 @@ def setup_db():
     cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS documents (
-            id        SERIAL PRIMARY KEY,
-            content   TEXT,
-            embedding vector(1536)
+            id          SERIAL PRIMARY KEY,
+            content     TEXT,
+            embedding   vector(1536),
+            source      TEXT DEFAULT 'CRR',
+            annex       TEXT,
+            breadcrumb  TEXT
         );
+    """)
+    # Non-destructive migration for databases created before metadata columns existed
+    cur.execute("""
+        ALTER TABLE documents
+            ADD COLUMN IF NOT EXISTS source      TEXT DEFAULT 'CRR',
+            ADD COLUMN IF NOT EXISTS annex       TEXT,
+            ADD COLUMN IF NOT EXISTS breadcrumb  TEXT;
     """)
     cur.close()
     conn.close()
