@@ -120,12 +120,15 @@ def retrieve(question: str, top_k: int = 5,
     register_vector(conn)
     cur = conn.cursor()
     cur.execute(
-        """SELECT content FROM documents
+        """SELECT content, source, breadcrumb FROM documents
            ORDER BY embedding <=> %s::vector
            LIMIT %s""",
         (embedding, top_k)
     )
-    rows = [r[0] for r in cur.fetchall()]
+    rows = [
+        {"content": r[0], "source": r[1] or "CRR", "breadcrumb": r[2] or ""}
+        for r in cur.fetchall()
+    ]
     cur.close()
     conn.close()
     return rows, effective_query
@@ -164,11 +167,13 @@ def ask(question: str, model: str = "gpt-4o-mini", top_k: int = 5,
     chunks, effective_query = retrieve(
         question, top_k, query_rewrite=query_rewrite, hyde=hyde
     )
-    answer = _generate_answer(question, chunks, model)
+    chunk_texts = [c["content"] for c in chunks]
+    answer = _generate_answer(question, chunk_texts, model)
     return {
         "answer": answer,
         "search_log": [{"query": effective_query, "chunks_found": len(chunks)}],
-        "total_chunks": len(chunks)
+        "total_chunks": len(chunks),
+        "chunks": chunks,
     }
 
 
@@ -181,14 +186,14 @@ def deep_think_ask(question: str, model: str = "gpt-4o-mini", top_k: int = 5,
     """
     client = get_client()
     seen   = set()
-    chunks = []
+    chunks = []  # list of dicts: {content, source, breadcrumb}
     search_log = []
 
     def add_unique(new_chunks: list) -> int:
         added = 0
         for c in new_chunks:
-            if c not in seen:
-                seen.add(c)
+            if c["content"] not in seen:
+                seen.add(c["content"])
                 chunks.append(c)
                 added += 1
         return added
@@ -202,7 +207,7 @@ def deep_think_ask(question: str, model: str = "gpt-4o-mini", top_k: int = 5,
 
     # ── Step 2: iterative follow-up queries ────────────────────────────
     for i in range(iterations):
-        context_so_far = "\n\n---\n\n".join(chunks[:15])
+        context_so_far = "\n\n---\n\n".join(c["content"] for c in chunks[:15])
 
         followup_resp = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -249,10 +254,12 @@ def deep_think_ask(question: str, model: str = "gpt-4o-mini", top_k: int = 5,
             search_log.append({"query": q, "chunks_found": found})
 
     # ── Step 3: final answer with all collected context ─────────────────
-    answer = _generate_answer(question, chunks, model, max_tokens=2048)
+    chunk_texts = [c["content"] for c in chunks]
+    answer = _generate_answer(question, chunk_texts, model, max_tokens=2048)
 
     return {
         "answer": answer,
         "search_log": search_log,
-        "total_chunks": len(chunks)
+        "total_chunks": len(chunks),
+        "chunks": chunks,
     }

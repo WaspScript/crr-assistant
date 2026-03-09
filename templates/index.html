@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CRR Assistant</title>
+  <title>EU Banking Regulation Assistant</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -224,6 +224,86 @@
     .trail-query .q-icon { color: #1a3c6e; font-weight: bold; flex-shrink: 0; }
     .trail-meta { color: #888; font-size: 0.72rem; margin-top: 6px; }
 
+    /* ── Excerpts (retrieved chunks) ─────────────────────────────────── */
+    .excerpts-section {
+      margin-top: 6px;
+      font-size: 0.78rem;
+    }
+    .excerpts-toggle {
+      color: #1a3c6e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      user-select: none;
+    }
+    .excerpts-toggle:hover { text-decoration: underline; }
+    .excerpts-content {
+      display: none;
+      margin-top: 6px;
+    }
+    .excerpts-content.visible { display: block; }
+    .excerpt-card {
+      background: #f8f9fa;
+      border: 1px solid #e2e6ea;
+      border-left: 3px solid #6c8ebf;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .excerpt-card.source-corep {
+      border-left-color: #5a9e6f;
+    }
+    .excerpt-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .excerpt-num {
+      font-weight: 700;
+      color: #1a3c6e;
+      font-size: 0.72rem;
+      background: #e8eef7;
+      border-radius: 4px;
+      padding: 1px 6px;
+      flex-shrink: 0;
+    }
+    .excerpt-num.corep {
+      color: #1e6b3e;
+      background: #e6f4ec;
+    }
+    .excerpt-source-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .badge-crr  { background: #dbe8f8; color: #1a3c6e; }
+    .badge-corep { background: #d4edda; color: #1e6b3e; }
+    .excerpt-breadcrumb {
+      font-size: 0.70rem;
+      color: #7a8595;
+      font-style: italic;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .excerpt-text {
+      color: #2a2a2a;
+      line-height: 1.55;
+      font-size: 0.80rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
     /* ── Footer input ────────────────────────────────────────────────── */
     footer {
       background: #fff;
@@ -289,6 +369,35 @@
       transition: background 0.15s;
     }
     .chip:hover { background: #e8eef7; }
+
+    /* ── Indexed sources list ─────────────────────────────────────── */
+    .sources-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 14px 0 4px;
+    }
+    .source-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #fff;
+      border: 1px solid #c5ccd6;
+      border-radius: 10px;
+      padding: 5px 12px;
+      font-size: 0.76rem;
+      color: #334;
+    }
+    .source-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .source-dot.crr   { background: #1a3c6e; }
+    .source-dot.corep { background: #1e6b3e; }
+    .source-label { font-weight: 600; }
+    .source-meta  { color: #7a8595; }
   </style>
 </head>
 <body>
@@ -296,8 +405,8 @@
 <!-- ── Header ────────────────────────────────────────────────────────── -->
 <header>
   <div>
-    <h1>⚖️ CRR Assistant</h1>
-    <p>Capital Requirements Regulation (EU) 575/2013</p>
+    <h1>⚖️ EU Banking Regulation Assistant</h1>
+    <p>CRR · COREP · EU prudential regulations</p>
   </div>
   <button id="settings-toggle" onclick="toggleSettings()">
     ⚙️ Settings
@@ -381,21 +490,22 @@
 <!-- ── Chat ──────────────────────────────────────────────────────────── -->
 <div id="chat-container">
   <div id="welcome">
-    <h2>Ask anything about the CRR</h2>
-    <p>Answers are grounded in the full text of Regulation (EU) No 575/2013.<br/>
-       Use <strong>Deep Think</strong> for complex questions — the AI will search iteratively for more context.</p>
+    <h2>Ask anything about EU banking regulations</h2>
+    <p>Answers are grounded in indexed regulatory documents.<br/>
+       Use <strong>Deep Think</strong> for complex cross-document questions.</p>
+    <div id="sources-list" class="sources-list"></div>
     <div class="chips">
       <span class="chip" onclick="sendSuggestion(this)">What is Tier 1 capital?</span>
       <span class="chip" onclick="sendSuggestion(this)">Own funds requirements under Article 92</span>
       <span class="chip" onclick="sendSuggestion(this)">How is the leverage ratio calculated?</span>
-      <span class="chip" onclick="sendSuggestion(this)">Liquidity coverage ratio requirements</span>
+      <span class="chip" onclick="sendSuggestion(this)">COREP own funds reporting (C 01.00)</span>
     </div>
   </div>
 </div>
 
 <!-- ── Footer ────────────────────────────────────────────────────────── -->
 <footer>
-  <textarea id="input" rows="1" placeholder="Ask a question about the CRR..."></textarea>
+  <textarea id="input" rows="1" placeholder="Ask a question about EU banking regulations..."></textarea>
   <button id="send-btn" onclick="sendMessage()" title="Send">&#9650;</button>
 </footer>
 
@@ -446,6 +556,30 @@
     el.innerHTML = pills;
   }
   updatePills();  // init on load
+
+  // ── Indexed sources ──────────────────────────────────────────────────
+  const SOURCE_INFO = {
+    CRR:   { label: "CRR — Regulation (EU) 575/2013", cls: "crr"   },
+    COREP: { label: "COREP — Reporting instructions",  cls: "corep" },
+  };
+
+  async function loadSources() {
+    try {
+      const res  = await fetch("/sources");
+      const data = await res.json();
+      const el   = document.getElementById("sources-list");
+      if (!el || !data.length) return;
+      el.innerHTML = data.map(s => {
+        const info = SOURCE_INFO[s.source] || { label: s.source, cls: "crr" };
+        return `<div class="source-item">
+          <span class="source-dot ${info.cls}"></span>
+          <span class="source-label">${s.source}</span>
+          <span class="source-meta">${info.label.split("—")[1]?.trim() || ""} · ${s.chunks.toLocaleString()} passages</span>
+        </div>`;
+      }).join("");
+    } catch (e) { /* silently ignore if endpoint unavailable */ }
+  }
+  loadSources();
 
   // Init: iterations group hidden by default (Deep Think off)
   document.getElementById("iterations-group").classList.add("hidden");
@@ -522,6 +656,47 @@
       div.appendChild(trail);
     }
 
+    // Excerpts section (retrieved chunks)
+    if (data.chunks && data.chunks.length > 0) {
+      const excSection = document.createElement("div");
+      excSection.className = "excerpts-section";
+
+      const excToggle = document.createElement("div");
+      excToggle.className = "excerpts-toggle";
+      excToggle.innerHTML = `📄 ${data.chunks.length} retrieved excerpt${data.chunks.length !== 1 ? "s" : ""} · click to view`;
+
+      const excContent = document.createElement("div");
+      excContent.className = "excerpts-content";
+
+      data.chunks.forEach((chunk, i) => {
+        const src    = (chunk.source || "CRR").toUpperCase();
+        const isCorep = src === "COREP";
+        const card   = document.createElement("div");
+        card.className = `excerpt-card${isCorep ? " source-corep" : ""}`;
+
+        const hdr = document.createElement("div");
+        hdr.className = "excerpt-header";
+        hdr.innerHTML = `
+          <span class="excerpt-num${isCorep ? " corep" : ""}">#${i + 1}</span>
+          <span class="excerpt-source-badge ${isCorep ? "badge-corep" : "badge-crr"}">${src}</span>
+          ${chunk.breadcrumb ? `<span class="excerpt-breadcrumb" title="${chunk.breadcrumb.replace(/"/g,'&quot;')}">${chunk.breadcrumb}</span>` : ""}
+        `;
+
+        const txt = document.createElement("div");
+        txt.className = "excerpt-text";
+        txt.textContent = chunk.content;
+
+        card.appendChild(hdr);
+        card.appendChild(txt);
+        excContent.appendChild(card);
+      });
+
+      excToggle.onclick = () => excContent.classList.toggle("visible");
+      excSection.appendChild(excToggle);
+      excSection.appendChild(excContent);
+      div.appendChild(excSection);
+    }
+
     chatEl.appendChild(div);
     chatEl.scrollTop = chatEl.scrollHeight;
   }
@@ -551,7 +726,7 @@
     thinkingBubble.className = "bubble";
     thinkingBubble.textContent = settings.deep_think
       ? `🧠 Deep thinking… (${settings.iterations} iteration${settings.iterations > 1 ? "s" : ""})`
-      : "Searching the CRR…";
+      : "Searching regulations…";
     thinkingDiv.appendChild(thinkingBubble);
     chatEl.appendChild(thinkingDiv);
     chatEl.scrollTop = chatEl.scrollHeight;

@@ -21,6 +21,7 @@ Schema changes:
 import os
 import sys
 import re
+import time
 import argparse
 from pathlib import Path
 from dotenv import load_dotenv
@@ -36,9 +37,10 @@ from docx.oxml.ns import qn
 
 from openai import OpenAI
 import psycopg2
+from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
 
-load_dotenv(override=False)  # shell env vars take precedence
+load_dotenv(override=True)  # .env file takes precedence (same as app.py)
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -46,7 +48,7 @@ load_dotenv(override=False)  # shell env vars take precedence
 
 COREP_DIR    = Path("COREP")
 EMBED_MODEL  = "text-embedding-3-small"
-BATCH_SIZE   = 50
+BATCH_SIZE   = 20   # rows per reconnect — smaller = shorter connection hold time
 MAX_CHUNK    = 1200   # chars — flush buffer if it grows beyond this
 MIN_CHUNK    = 60     # chars — skip chunks shorter than this
 
@@ -385,6 +387,10 @@ def main():
         "--verbose", action="store_true",
         help="Print paragraph style distribution and first 3 chunks per file."
     )
+    parser.add_argument(
+        "--confirm", action="store_true",
+        help="Skip the interactive production confirmation prompt."
+    )
     args = parser.parse_args()
 
     # --- Select DB URL ---
@@ -437,7 +443,7 @@ def main():
         return
 
     # --- Confirm before touching prod ---
-    if args.db == "prod":
+    if args.db == "prod" and not args.confirm:
         confirm = input(
             "\nYou are about to write to PRODUCTION. Type 'yes' to continue: "
         ).strip().lower()
@@ -475,21 +481,56 @@ def main():
     conn.commit()
     print(f"Removed {deleted} existing COREP rows.")
 
-    print(f"Inserting {len(all_chunks)} chunks...")
-    for i, (chunk, emb) in enumerate(zip(all_chunks, all_embeddings)):
-        cur.execute(
-            """
-            INSERT INTO documents (content, embedding, source, annex, breadcrumb)
-            VALUES (%s, %s, 'COREP', %s, %s)
-            """,
-            (chunk["content"], emb, chunk.get("annex"), chunk.get("breadcrumb"))
-        )
-        if (i + 1) % BATCH_SIZE == 0 or (i + 1) == len(all_chunks):
-            conn.commit()
-            print(f"  {i + 1}/{len(all_chunks)} inserted...")
-
     cur.close()
     conn.close()
+
+    # Insert with per-batch connections + retry on connection drop.
+    # execute_values sends one INSERT per batch (single round-trip).
+    MAX_RETRIES = 6
+    print(f"Inserting {len(all_chunks)} chunks (batch={BATCH_SIZE}, max_retries={MAX_RETRIES})...")
+    for batch_start in range(0, len(all_chunks), BATCH_SIZE):
+        batch_end    = min(batch_start + BATCH_SIZE, len(all_chunks))
+        batch_chunks = all_chunks[batch_start:batch_end]
+        batch_embs   = all_embeddings[batch_start:batch_end]
+
+        values = [
+            (c["content"], emb, c.get("annex"), c.get("breadcrumb"))
+            for c, emb in zip(batch_chunks, batch_embs)
+        ]
+
+        for attempt in range(MAX_RETRIES):
+            try:
+                conn = psycopg2.connect(db_url)
+                conn.autocommit = False
+                register_vector(conn)
+                cur = conn.cursor()
+                execute_values(
+                    cur,
+                    """
+                    INSERT INTO documents (content, embedding, source, annex, breadcrumb)
+                    VALUES %s
+                    """,
+                    values,
+                    template="(%s, %s::vector, 'COREP', %s, %s)",
+                )
+                conn.commit()
+                cur.close()
+                conn.close()
+                break  # success
+            except psycopg2.OperationalError as e:
+                try:
+                    conn.close()
+                except Exception:
+                    pass
+                if attempt < MAX_RETRIES - 1:
+                    wait = 2 ** attempt
+                    print(f"  Connection error at {batch_end} (attempt {attempt + 1}), retrying in {wait}s...")
+                    time.sleep(wait)
+                else:
+                    raise
+
+        print(f"  {batch_end}/{len(all_chunks)} inserted...")
+
     print("\nDone. COREP documents are indexed and ready to query.")
 
 

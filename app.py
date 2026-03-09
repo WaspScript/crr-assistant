@@ -49,6 +49,22 @@ def index():
     return render_template("index.html", models=MODELS)
 
 
+@app.route("/sources")
+def sources():
+    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT source, COUNT(*) AS chunks
+        FROM documents
+        GROUP BY source
+        ORDER BY source
+    """)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify([{"source": r[0], "chunks": r[1]} for r in rows])
+
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data       = request.get_json()
