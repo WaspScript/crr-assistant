@@ -1,0 +1,71 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "C 13.01 - Credit Risk – Securitisations (CR SEC)",
+      "level": 2,
+      "description": "Details the reporting requirements for credit risk related to securitisations."
+    },
+    {
+      "heading": "3.7.1. General remarks",
+      "level": 3,
+      "description": "General information regarding the reporting of securitisations."
+    },
+    {
+      "heading": "3.7.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Specific instructions for reporting different positions in securitisations."
+    },
+    {
+      "heading": "3.8. Detailed information on securitisations (SEC DETAILS)",
+      "level": 2,
+      "description": "Detailed reporting requirements for securitisations on a transaction basis."
+    },
+    {
+      "heading": "3.8.1. Scope of the SEC DETAILS template",
+      "level": 3,
+      "description": "Defines the scope and applicability of the SEC DETAILS template."
+    },
+    {
+      "heading": "3.8.2 Breakdown of the SEC DETAILS template",
+      "level": 3,
+      "description": "Overview of the structure and components of the SEC DETAILS template."
+    },
+    {
+      "heading": "3.8.3 C 14.00 – Detailed information on securitisations (SEC DETAILS)",
+      "level": 3,
+      "description": "Describes the columns and data required in the SEC DETAILS template."
+    },
+    {
+      "heading": "3.8.4. C 14.01 – Detailed information on securitisations (SEC DETAILS 2)",
+      "level": 3,
+      "description": "Details the second SEC DETAILS template and its reporting requirements."
+    }
+  ],
+  "templates": {
+    "C 13.01": {
+      "name": "C 13.01 - Credit Risk – Securitisations (CR SEC)",
+      "description": "Reports credit risk exposures related to securitisations, including originator and investor roles.",
+      "section_heading": "C 13.01 - Credit Risk – Securitisations (CR SEC)"
+    },
+    "C 14.00": {
+      "name": "C 14.00 – Detailed information on securitisations (SEC DETAILS)",
+      "description": "Gathers detailed information on securitisations on a transaction basis.",
+      "section_heading": "3.8.3 C 14.00 – Detailed information on securitisations (SEC DETAILS)"
+    },
+    "C 14.01": {
+      "name": "C 14.01 – Detailed information on securitisations (SEC DETAILS 2)",
+      "description": "Provides a breakdown of securitisation positions subject to own funds requirements.",
+      "section_heading": "3.8.4. C 14.01 – Detailed information on securitisations (SEC DETAILS 2)"
+    }
+  }
+}

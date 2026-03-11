@@ -1,0 +1,131 @@
+{
+  "sections": [
+    {
+      "heading": "EN",
+      "level": 1,
+      "description": "Introduction to the document."
+    },
+    {
+      "heading": "ANNEX XI",
+      "level": 1,
+      "description": "Instructions for reporting on leverage."
+    },
+    {
+      "heading": "PART I: GENERAL INSTRUCTIONS",
+      "level": 1,
+      "description": "General instructions regarding the structure and conventions of the reporting."
+    },
+    {
+      "heading": "1. Structure and other conventions",
+      "level": 2,
+      "description": "Details on the structure and conventions used in the document."
+    },
+    {
+      "heading": "1.1. Structure",
+      "level": 3,
+      "description": "Overview of the structure of the reporting templates."
+    },
+    {
+      "heading": "1.2. Numbering convention",
+      "level": 3,
+      "description": "Explanation of the numbering convention used in the document."
+    },
+    {
+      "heading": "1.3. Abbreviations",
+      "level": 3,
+      "description": "List of abbreviations used in the document."
+    },
+    {
+      "heading": "1.4. Sign convention",
+      "level": 3,
+      "description": "Description of the sign convention for reporting amounts."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 1,
+      "description": "Instructions related to the reporting templates."
+    },
+    {
+      "heading": "1. Formulas for leverage ratio calculation",
+      "level": 2,
+      "description": "Formulas used for calculating the leverage ratio."
+    },
+    {
+      "heading": "2. Materiality thresholds for derivatives",
+      "level": 2,
+      "description": "Thresholds for reporting derivatives in relation to leverage."
+    },
+    {
+      "heading": "3. C 47.00 – Leverage ratio calculation (LRCalc)",
+      "level": 2,
+      "description": "Template for calculating the leverage ratio."
+    },
+    {
+      "heading": "4. C 40.00 – Alternative treatment of the Exposure Measure (LR1)",
+      "level": 2,
+      "description": "Template for alternative treatment of the exposure measure."
+    },
+    {
+      "heading": "5. C 43.00 – Alternative breakdown of leverage ratio exposure measure components (LR4)",
+      "level": 2,
+      "description": "Template for alternative breakdown of leverage ratio exposure measure components."
+    },
+    {
+      "heading": "6. C 44.00 – General information (LR5)",
+      "level": 2,
+      "description": "Template for general information regarding the institution."
+    },
+    {
+      "heading": "7. C 48.00 Leverage ratio volatility (LR6)",
+      "level": 2,
+      "description": "Template for monitoring leverage ratio volatility."
+    },
+    {
+      "heading": "8. C 48.01 Leverage ratio volatility: Mean value for the reporting period",
+      "level": 2,
+      "description": "Template for reporting mean values of leverage ratio volatility."
+    },
+    {
+      "heading": "9. C 48.02 Leverage ratio volatility: Daily values for the reporting period",
+      "level": 2,
+      "description": "Template for reporting daily values of leverage ratio volatility."
+    }
+  ],
+  "templates": {
+    "C47.00": {
+      "name": "C 47.00 – Leverage ratio calculation (LRCalc)",
+      "description": "Collects data needed to calculate the leverage ratio as defined in Regulation (EU) No 575/2013.",
+      "section_heading": "3. C 47.00 – Leverage ratio calculation (LRCalc)"
+    },
+    "C40.00": {
+      "name": "C 40.00 – Alternative treatment of the Exposure Measure (LR1)",
+      "description": "Collects data on an alternative treatment of derivatives, SFTs, and off-balance sheet items.",
+      "section_heading": "4. C 40.00 – Alternative treatment of the Exposure Measure (LR1)"
+    },
+    "C43.00": {
+      "name": "C 43.00 – Alternative breakdown of leverage ratio exposure measure components (LR4)",
+      "description": "Reports the leverage ratio exposure values after applying exemptions and deductions.",
+      "section_heading": "5. C 43.00 – Alternative breakdown of leverage ratio exposure measure components (LR4)"
+    },
+    "C44.00": {
+      "name": "C 44.00 – General information (LR5)",
+      "description": "Collects additional information for categorizing institution activities and regulatory options.",
+      "section_heading": "6. C 44.00 – General information (LR5)"
+    },
+    "C48.00": {
+      "name": "C 48.00 – Leverage ratio volatility (LR6)",
+      "description": "Monitors the volatility of the leverage ratio, reported by large institutions only.",
+      "section_heading": "7. C 48.00 Leverage ratio volatility (LR6)"
+    },
+    "C48.01": {
+      "name": "C 48.01 – Leverage ratio volatility: Mean value for the reporting period",
+      "description": "Reports the mean of daily values of the SFT exposure value for the reporting quarter.",
+      "section_heading": "8. C 48.01 Leverage ratio volatility: Mean value for the reporting period"
+    },
+    "C48.02": {
+      "name": "C 48.02 – Leverage ratio volatility: Daily values for the reporting period",
+      "description": "Reports daily values of the SFT exposure value for the reporting quarter.",
+      "section_heading": "9. C 48.02 Leverage ratio volatility: Daily values for the reporting period"
+    }
+  }
+}

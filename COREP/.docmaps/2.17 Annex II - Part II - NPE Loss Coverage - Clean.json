@@ -1,0 +1,56 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "8. NPE Loss Coverage (NPE LC)",
+      "level": 2,
+      "description": "Overview of templates related to non-performing exposures and their loss coverage."
+    },
+    {
+      "heading": "8.1. General remarks",
+      "level": 3,
+      "description": "General information about the NPE loss coverage templates."
+    },
+    {
+      "heading": "8.2. C 35.01 – THE CALCULATION OF DEDUCTIONS FOR NON-PERFORMING EXPOSURES (NPE LC1)",
+      "level": 3,
+      "description": "Instructions for calculating deductions for non-performing exposures."
+    },
+    {
+      "heading": "C 35.02 – MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING EXPOSURES EXCLUDING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC2)",
+      "level": 3,
+      "description": "Instructions for minimum coverage requirements and exposure values of non-performing exposures."
+    },
+    {
+      "heading": "C 35.03 – MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC3)",
+      "level": 3,
+      "description": "Instructions for minimum coverage requirements and exposure values of non-performing forborne exposures."
+    }
+  ],
+  "templates": {
+    "C 35.01": {
+      "name": "THE CALCULATION OF DEDUCTIONS FOR NON-PERFORMING EXPOSURES (NPE LC1)",
+      "description": "Reports the applicable amount of insufficient coverage for non-performing exposures.",
+      "section_heading": "8.2. C 35.01 – THE CALCULATION OF DEDUCTIONS FOR NON-PERFORMING EXPOSURES (NPE LC1)"
+    },
+    "C 35.02": {
+      "name": "MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING EXPOSURES EXCLUDING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC2)",
+      "description": "Calculates the total minimum coverage requirements for non-performing exposures excluding forborne exposures.",
+      "section_heading": "C 35.02 – MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING EXPOSURES EXCLUDING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC2)"
+    },
+    "C 35.03": {
+      "name": "MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC3)",
+      "description": "Calculates the total minimum coverage requirements for non-performing forborne exposures.",
+      "section_heading": "C 35.03 – MINIMUM COVERAGE REQUIREMENTS AND EXPOSURE VALUES OF NON-PERFORMING FORBORNE EXPOSURES THAT FALL UNDER ARTICLE 47C (6) OF REGULATION (EU) NO 575/2013 (NPE LC3)"
+    }
+  }
+}

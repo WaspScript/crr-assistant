@@ -1,0 +1,66 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "C 09.01 – Geographical breakdown of exposures by residence of the obligor: SA exposures (CR GB 1)",
+      "level": 2,
+      "description": "Details on the geographical breakdown of standardised approach exposures."
+    },
+    {
+      "heading": "3.4.1.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for reporting specific positions in the template."
+    },
+    {
+      "heading": "3.4.2. C 09.02 – Geographical breakdown of exposures by residence of the obligor: IRB exposures (CR GB 2)",
+      "level": 2,
+      "description": "Details on the geographical breakdown of internal ratings-based exposures."
+    },
+    {
+      "heading": "3.4.2.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for reporting specific positions in the IRB exposures template."
+    },
+    {
+      "heading": "3.4.3. C 09.04 – Breakdown of credit exposures relevant for the calculation of the countercyclical buffer by country and institution-specific countercyclical buffer rate (CCB)",
+      "level": 2,
+      "description": "Breakdown of credit exposures for countercyclical buffer calculations."
+    },
+    {
+      "heading": "3.4.3.1. General remarks",
+      "level": 3,
+      "description": "General remarks regarding the countercyclical buffer template."
+    },
+    {
+      "heading": "3.4.3.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for reporting specific positions in the countercyclical buffer template."
+    }
+  ],
+  "templates": {
+    "C 09.01": {
+      "name": "C 09.01 – Geographical breakdown of exposures by residence of the obligor: SA exposures (CR GB 1)",
+      "description": "Reports the geographical breakdown of standardised approach exposures by the residence of the obligor.",
+      "section_heading": "C 09.01 – Geographical breakdown of exposures by residence of the obligor: SA exposures (CR GB 1)"
+    },
+    "C 09.02": {
+      "name": "C 09.02 – Geographical breakdown of exposures by residence of the obligor: IRB exposures (CR GB 2)",
+      "description": "Reports the geographical breakdown of internal ratings-based exposures by the residence of the obligor.",
+      "section_heading": "3.4.2. C 09.02 – Geographical breakdown of exposures by residence of the obligor: IRB exposures (CR GB 2)"
+    },
+    "C 09.04": {
+      "name": "C 09.04 – Breakdown of credit exposures relevant for the calculation of the countercyclical buffer by country and institution-specific countercyclical buffer rate (CCB)",
+      "description": "Reports the breakdown of credit exposures relevant for the calculation of the countercyclical buffer by country.",
+      "section_heading": "3.4.3. C 09.04 – Breakdown of credit exposures relevant for the calculation of the countercyclical buffer by country and institution-specific countercyclical buffer rate (CCB)"
+    }
+  }
+}

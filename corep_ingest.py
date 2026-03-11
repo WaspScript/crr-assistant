@@ -2,11 +2,20 @@
 corep_ingest.py — Ingest COREP regulatory DOCX files into the RAG vector database.
 
 Usage:
-    python corep_ingest.py --db local                    # use DATABASE_URL_LOCAL
-    python corep_ingest.py --db prod                     # use DATABASE_URL
-    python corep_ingest.py --db local --dry-run          # parse only, no DB writes
-    python corep_ingest.py --db local --file "Capital"   # ingest one matching file
-    python corep_ingest.py --db local --dry-run --verbose  # show every chunk
+    python corep_ingest.py --db local                              # custom parser (default)
+    python corep_ingest.py --db local --parser docling             # docling parser
+    python corep_ingest.py --db prod                               # use DATABASE_URL
+    python corep_ingest.py --db local --dry-run                    # parse only, no DB writes
+    python corep_ingest.py --db local --file "Capital"             # ingest one matching file
+    python corep_ingest.py --db local --dry-run --verbose          # show every chunk
+
+Parser options:
+    --parser custom   (default) Hand-crafted style-based parser using python-docx.
+                      Reads Word paragraph styles, maintains a heading stack, and builds
+                      breadcrumb context prefixes. Full control over COREP-specific styles.
+    --parser docling  IBM Docling library. Converts DOCX via its own pipeline, then uses
+                      HybridChunker (structure + token-aware). Less tunable but handles
+                      edge cases automatically (merged cells, font artefacts, etc.).
 
 Environment variables (in .env):
     DATABASE_URL_LOCAL   — local PostgreSQL connection string (for testing)
@@ -50,7 +59,8 @@ COREP_DIR    = Path("COREP")
 EMBED_MODEL  = "text-embedding-3-small"
 BATCH_SIZE   = 20   # rows per reconnect — smaller = shorter connection hold time
 MAX_CHUNK    = 1200   # chars — flush buffer if it grows beyond this
-MIN_CHUNK    = 60     # chars — skip chunks shorter than this
+MIN_CHUNK    = 500    # chars — merge chunks shorter than this with their neighbours
+_NOISE_CHUNK = 30    # chars — discard chunks shorter than this (truly empty/noise)
 
 # ---------------------------------------------------------------------------
 # Paragraph style classification
@@ -178,6 +188,65 @@ def make_breadcrumb(annex: str, topic: str, headings: list[str]) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Chunk post-processing: merge small consecutive text chunks
+# ---------------------------------------------------------------------------
+
+def _merge_small_chunks(chunks: list[dict],
+                        threshold: int = MIN_CHUNK,
+                        max_size: int = MAX_CHUNK) -> list[dict]:
+    """
+    Post-processing pass: merge consecutive non-table text chunks where at least
+    one has body text (content minus the leading breadcrumb line) shorter than
+    `threshold`, as long as the combined body stays within `max_size`.
+
+    Table rows (body starts with "[Table]") are never merged — they carry
+    independent header context and must stay as individual rows.  They ARE
+    preserved even if their body is shorter than `threshold`; only content
+    below _NOISE_CHUNK is discarded before this function is called.
+    """
+    if not chunks:
+        return chunks
+
+    def _body(chunk: dict) -> str:
+        c = chunk["content"]
+        return c.split("\n", 1)[1] if "\n" in c else c
+
+    result: list[dict] = []
+    pending = dict(chunks[0])
+
+    for nxt in chunks[1:]:
+        p_body = _body(pending)
+        n_body = _body(nxt)
+        p_tbl  = p_body.lstrip().startswith("[Table]")
+        n_tbl  = n_body.lstrip().startswith("[Table]")
+
+        can_merge = (
+            not p_tbl and not n_tbl                          # neither is a table row
+            and (len(p_body) < threshold
+                 or len(n_body) < threshold)                  # at least one is small
+            and len(p_body) + 1 + len(n_body) <= max_size    # combined fits
+        )
+
+        if can_merge:
+            # Prefer the more specific (longer) breadcrumb
+            bc = (nxt["breadcrumb"]
+                  if len(nxt["breadcrumb"]) > len(pending["breadcrumb"])
+                  else pending["breadcrumb"])
+            merged_body = p_body + "\n" + n_body
+            pending = {
+                "content":    f"{bc}\n{merged_body}",
+                "breadcrumb": bc,
+                "annex":      pending["annex"],
+            }
+        else:
+            result.append(pending)
+            pending = dict(nxt)
+
+    result.append(pending)
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Table parsing
 # ---------------------------------------------------------------------------
 
@@ -212,7 +281,7 @@ def table_to_chunks(table: Table, breadcrumb: str, annex: str) -> list[dict]:
                     cell_texts.append(t)
 
         row_text = " | ".join(cell_texts)
-        if len(row_text) < MIN_CHUNK:
+        if len(row_text) < _NOISE_CHUNK:
             continue
 
         content = f"{breadcrumb}\n[Table] {header_line}\n{row_text}"
@@ -234,13 +303,13 @@ def split_at_sentences(text: str, breadcrumb: str, annex: str) -> list[dict]:
     current = ""
     for sent in sentences:
         if current and len(current) + 1 + len(sent) > MAX_CHUNK:
-            if len(current.strip()) >= MIN_CHUNK:
+            if len(current.strip()) >= _NOISE_CHUNK:
                 chunks.append({"content": f"{breadcrumb}\n{current.strip()}",
                                "breadcrumb": breadcrumb, "annex": annex})
             current = sent
         else:
             current = (current + " " + sent).strip() if current else sent
-    if current.strip() and len(current.strip()) >= MIN_CHUNK:
+    if current.strip() and len(current.strip()) >= _NOISE_CHUNK:
         chunks.append({"content": f"{breadcrumb}\n{current.strip()}",
                        "breadcrumb": breadcrumb, "annex": annex})
     return chunks
@@ -276,7 +345,7 @@ def parse_docx(path: Path, verbose: bool = False) -> list[dict]:
             return
         text = "\n".join(buffer).strip()
         buffer = []
-        if len(text) < MIN_CHUNK:
+        if len(text) < _NOISE_CHUNK:
             return
         bc = force_breadcrumb or current_breadcrumb()
         if len(text) <= MAX_CHUNK:
@@ -307,7 +376,7 @@ def parse_docx(path: Path, verbose: bool = False) -> list[dict]:
             elif kind == "standalone":
                 flush()
                 bc = current_breadcrumb()
-                if len(text) >= MIN_CHUNK:
+                if len(text) >= _NOISE_CHUNK:
                     chunks.append({"content": f"{bc}\n{text}",
                                    "breadcrumb": bc, "annex": annex})
 
@@ -331,7 +400,370 @@ def parse_docx(path: Path, verbose: bool = False) -> list[dict]:
         for sname, count in sorted(style_seen.items(), key=lambda x: -x[1])[:10]:
             print(f"      {count:4d}x  {sname}")
 
-    return chunks
+    return _merge_small_chunks(chunks)
+
+
+# ---------------------------------------------------------------------------
+# Docling parser (alternative to parse_docx)
+# ---------------------------------------------------------------------------
+
+# Docling adds a numeric level prefix to heading strings, e.g. "1 10.1 General remarks".
+# Strip the leading digit(s)+space so breadcrumbs look the same as the custom parser.
+_DOCLING_HEADING_PREFIX = re.compile(r"^\d+\s+")
+
+# HybridChunker token budget — ~300 tokens ≈ 1 200 chars, matching MAX_CHUNK above.
+_DOCLING_MAX_TOKENS = 300
+
+
+def parse_docx_docling(path: Path) -> list[dict]:
+    """
+    Parse a COREP DOCX with IBM Docling and return chunks in the same format as
+    parse_docx(): list of {"content": ..., "breadcrumb": ..., "annex": ...}.
+
+    Docling pipeline:
+      1. DocumentConverter converts the DOCX into a structured DoclingDocument
+         (headings, paragraphs, tables all labelled and linked).
+      2. HybridChunker splits that document respecting both the heading hierarchy
+         (structure-aware) and a token budget (token-aware).
+      3. Each chunk carries chunk.meta.headings — the active heading path at that
+         point in the document — which we use to build the breadcrumb.
+    """
+    # Lazy import so the module loads fast when docling is not used.
+    import warnings
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    from docling.document_converter import DocumentConverter
+    from docling.chunking import HybridChunker
+
+    meta  = parse_filename_meta(path.name)
+    annex = meta["annex"]
+    topic = meta["topic"]
+
+    converter = DocumentConverter()
+    doc = converter.convert(str(path)).document
+
+    chunker = HybridChunker(max_tokens=_DOCLING_MAX_TOKENS)
+    chunks: list[dict] = []
+
+    for chunk in chunker.chunk(doc):
+        text = chunk.text.strip()
+        if len(text) < _NOISE_CHUNK:
+            continue
+
+        # Build heading list from docling metadata, stripping the numeric prefix
+        raw_headings = chunk.meta.headings or []
+        clean_headings = [_DOCLING_HEADING_PREFIX.sub("", h).strip() for h in raw_headings]
+
+        bc = make_breadcrumb(annex, topic, clean_headings)
+        content = f"{bc}\n{text}"
+        chunks.append({"content": content, "breadcrumb": bc, "annex": annex})
+
+    return _merge_small_chunks(chunks)
+
+
+# ---------------------------------------------------------------------------
+# LLM-assisted parser (document map + chunk enrichment)
+# ---------------------------------------------------------------------------
+
+_DOCMAP_DIR = COREP_DIR / ".docmaps"
+
+_DOCMAP_PROMPT = """\
+You are analysing a COREP regulatory reporting document. Your task is to build a
+structured "document map" that captures the section hierarchy and the reporting
+templates defined in this document.
+
+Rules:
+- Identify ALL logical section headings, even if they look like plain paragraphs
+  (e.g. "PART I: GENERAL INSTRUCTIONS", "3. C 47.00 – Leverage ratio calculation").
+- For every reporting template mentioned (e.g. C47.00, LRCalc, LR1, LR4, LR5),
+  extract its short code(s) and a concise description of what it reports.
+- Return ONLY a single valid JSON object — no markdown, no explanation.
+
+Required JSON schema:
+{
+  "sections": [
+    {
+      "heading": "<exact heading text>",
+      "level": <1 for top-level, 2 for sub-section, etc.>,
+      "description": "<one sentence: what this section covers>"
+    }
+  ],
+  "templates": {
+    "<short_code>": {
+      "name": "<full template name incl. template ID>",
+      "description": "<one sentence: what this template reports and its key purpose>",
+      "section_heading": "<the section heading under which this template is described>"
+    }
+  }
+}
+
+Document text:
+"""
+
+# Regex patterns to detect template codes inside chunk text
+_TEMPLATE_CODE_RE = re.compile(
+    r'\b(LRCalc|LR1|LR2|LR3|LR4|LR5|LR6'        # Leverage
+    r'|C\s*\d+[\w.]*'                              # generic C xx.xx codes
+    r'|CA\d|CR\w+|MKR\w+|LE\w+|G\w+SII'           # other COREP codes
+    r')\b'
+)
+
+
+def _extract_raw_text(path: Path) -> str:
+    """
+    Extract a clean plain-text representation of the DOCX for the LLM prompt.
+    Paragraphs → text lines; tables → [Table] header / row lines.
+    """
+    doc = Document(str(path))
+    lines: list[str] = []
+
+    for child in doc.element.body.iterchildren():
+        tag = child.tag.split("}")[-1] if "}" in child.tag else child.tag
+
+        if tag == "p":
+            text = Paragraph(child, doc).text.strip()
+            if text:
+                lines.append(text)
+
+        elif tag == "tbl":
+            table = Table(child, doc)
+            rows = table.rows
+            if not rows:
+                continue
+            # Header row
+            seen = set()
+            header_parts = []
+            for cell in rows[0].cells:
+                cid = id(cell._tc)
+                if cid not in seen:
+                    seen.add(cid)
+                    t = cell.text.strip()
+                    if t:
+                        header_parts.append(t)
+            lines.append("[Table] " + " | ".join(header_parts))
+            # Data rows (truncate very long tables to save tokens)
+            for row in rows[1:min(len(rows), 60)]:
+                seen = set()
+                parts = []
+                for cell in row.cells:
+                    cid = id(cell._tc)
+                    if cid not in seen:
+                        seen.add(cid)
+                        t = cell.text.strip()
+                        if t:
+                            parts.append(t)
+                if parts:
+                    lines.append("  " + " | ".join(parts))
+
+    return "\n".join(lines)
+
+
+def _load_or_build_docmap(path: Path, refresh: bool, client: OpenAI) -> dict:
+    """
+    Load the document map from cache, or call GPT-4o-mini to build it.
+    Cache file: COREP/.docmaps/<stem>.json
+    """
+    import json
+
+    _DOCMAP_DIR.mkdir(exist_ok=True)
+    cache_path = _DOCMAP_DIR / (path.stem + ".json")
+
+    if cache_path.exists() and not refresh:
+        with cache_path.open(encoding="utf-8") as f:
+            return json.load(f)
+
+    print(f"    [LLM] Building document map for {path.name} ...")
+    raw_text = _extract_raw_text(path)
+
+    resp = client.chat.completions.create(
+        model="gpt-4o-mini",
+        max_tokens=4096,
+        temperature=0,
+        messages=[
+            {"role": "user", "content": _DOCMAP_PROMPT + raw_text},
+        ],
+        response_format={"type": "json_object"},
+    )
+
+    import json
+    raw_json = resp.choices[0].message.content
+    try:
+        doc_map = json.loads(raw_json)
+    except json.JSONDecodeError as e:
+        print(f"    [LLM] WARNING: JSON parse failed ({e}); using empty map for {path.name}")
+        doc_map = {"sections": [], "templates": {}}
+
+    with cache_path.open("w", encoding="utf-8") as f:
+        json.dump(doc_map, f, indent=2, ensure_ascii=False)
+
+    print(f"    [LLM] Map cached → {cache_path}")
+    return doc_map
+
+
+def _find_template_for_chunk(content: str, templates: dict) -> dict | None:
+    """
+    Return the template info dict most relevant to this chunk, or None.
+    Matches by short code appearance in the content text.
+    """
+    # Direct key match first (short codes like LRCalc, LR1, …)
+    for code, info in templates.items():
+        if re.search(r'\b' + re.escape(code) + r'\b', content):
+            return info
+    # Fallback: scan for any template-like code and match by name substring
+    found = _TEMPLATE_CODE_RE.findall(content)
+    for code in found:
+        code_clean = code.replace(" ", "").upper()
+        for key, info in templates.items():
+            if code_clean in key.upper() or code_clean in info.get("name", "").upper():
+                return info
+    return None
+
+
+def _find_section_for_chunk(content: str, sections: list[dict]) -> dict | None:
+    """
+    Return the deepest section whose heading text appears (or is partly found)
+    in the chunk content.
+    """
+    best: dict | None = None
+    for sec in sections:
+        heading = sec.get("heading", "")
+        # Try progressively shorter fragments of the heading
+        words = heading.split()
+        for length in range(len(words), max(1, len(words) - 3) - 1, -1):
+            fragment = " ".join(words[:length])
+            if len(fragment) > 8 and fragment.lower() in content.lower():
+                if best is None or sec.get("level", 99) >= best.get("level", 0):
+                    best = sec
+                break
+    return best
+
+
+# Raw-text length below which a chunk is a candidate for merging with its neighbour.
+_LLM_MERGE_THRESHOLD = 500   # chars of raw text (breadcrumb/context line excluded)
+
+
+def _merge_small_llm_chunks(items: list[dict]) -> list[dict]:
+    """
+    Merge consecutive chunks whose raw_text is below _LLM_MERGE_THRESHOLD,
+    as long as the combined raw_text stays within MAX_CHUNK.
+
+    Each item is a dict with keys: breadcrumb, context_line (str|None), raw_text, annex.
+    Returns final list with those same keys; caller rebuilds the content string.
+    Table rows ([Table] prefix) are never merged into non-table text and vice versa,
+    because they have a different semantic structure.
+    """
+    if not items:
+        return items
+
+    result: list[dict] = []
+    pending = dict(items[0])
+
+    for nxt in items[1:]:
+        p_raw = pending["raw_text"]
+        n_raw = nxt["raw_text"]
+        p_is_table = p_raw.lstrip().startswith("[Table]")
+        n_is_table = n_raw.lstrip().startswith("[Table]")
+
+        can_merge = (
+            not p_is_table and not n_is_table          # don't merge table rows
+            and (len(p_raw) < _LLM_MERGE_THRESHOLD
+                 or len(n_raw) < _LLM_MERGE_THRESHOLD) # at least one is small
+            and len(p_raw) + 1 + len(n_raw) <= MAX_CHUNK  # combined fits
+        )
+
+        if can_merge:
+            pending["raw_text"] = p_raw + "\n" + n_raw
+            # Keep the context_line of the first chunk; update breadcrumb if
+            # the next chunk has a more specific one (longer = more detail).
+            if len(nxt["breadcrumb"]) > len(pending["breadcrumb"]):
+                pending["breadcrumb"] = nxt["breadcrumb"]
+            if pending["context_line"] is None and nxt["context_line"] is not None:
+                pending["context_line"] = nxt["context_line"]
+        else:
+            result.append(pending)
+            pending = dict(nxt)
+
+    result.append(pending)
+    return result
+
+
+def parse_docx_llm(path: Path, refresh_maps: bool = False) -> list[dict]:
+    """
+    Parse a COREP DOCX using the custom chunker as a base, then enrich each chunk
+    with context from a GPT-4o-mini-generated document map.
+
+    Pipeline:
+      1. _extract_raw_text()  →  plain-text doc for LLM
+      2. _load_or_build_docmap()  →  JSON {sections, templates} (cached on disk)
+      3. parse_docx()  →  base chunks (standard breadcrumb + text)
+      4. For each chunk: detect referenced template / section, rebuild breadcrumb,
+         prepend a Context: line for table/template chunks.
+      5. Merge consecutive small (< _LLM_MERGE_THRESHOLD chars) non-table chunks.
+    """
+    from openai import OpenAI as _OpenAI
+    client = _OpenAI()
+
+    meta  = parse_filename_meta(path.name)
+    annex = meta["annex"]
+    topic = meta["topic"]
+
+    doc_map   = _load_or_build_docmap(path, refresh=refresh_maps, client=client)
+    templates = doc_map.get("templates", {})
+    sections  = doc_map.get("sections", [])
+
+    # Base chunks from the custom parser (provides text + table structure)
+    base_chunks = parse_docx(path)
+
+    # Build intermediate items: (breadcrumb, context_line|None, raw_text, annex)
+    items: list[dict] = []
+    last_tmpl: dict | None = None   # carry forward: table rows inherit template context
+
+    for chunk in base_chunks:
+        content  = chunk["content"]
+        # Strip existing breadcrumb prefix to work with the raw text
+        raw_text = content.split("\n", 1)[1] if "\n" in content else content
+
+        # Determine best section heading from LLM map
+        sec  = _find_section_for_chunk(raw_text, sections)
+        tmpl = _find_template_for_chunk(raw_text, templates)
+
+        # Table chunks use {row;col} notation without a template name prefix.
+        # Inherit the last seen template so they get context without a code reference.
+        if tmpl:
+            last_tmpl = tmpl
+        elif raw_text.lstrip().startswith("[Table]"):
+            tmpl = last_tmpl
+
+        # Build an enriched heading path
+        heading_parts: list[str] = []
+        if sec:
+            heading_parts.append(sec["heading"])
+        if tmpl and tmpl.get("section_heading") and tmpl["section_heading"] not in heading_parts:
+            heading_parts.append(tmpl["section_heading"])
+
+        bc           = make_breadcrumb(annex, topic, heading_parts)
+        context_line = (f"Context: {tmpl['name']} — {tmpl['description']}"
+                        if tmpl else None)
+
+        items.append({
+            "breadcrumb":   bc,
+            "context_line": context_line,
+            "raw_text":     raw_text,
+            "annex":        annex,
+        })
+
+    # Merge consecutive small chunks
+    items = _merge_small_llm_chunks(items)
+
+    # Rebuild final content strings
+    enriched: list[dict] = []
+    for item in items:
+        bc   = item["breadcrumb"]
+        ctx  = item["context_line"]
+        raw  = item["raw_text"]
+        content = f"{bc}\n{ctx}\n{raw}" if ctx else f"{bc}\n{raw}"
+        enriched.append({"content": content, "breadcrumb": bc, "annex": item["annex"]})
+
+    return enriched
 
 
 # ---------------------------------------------------------------------------
@@ -376,6 +808,16 @@ def main():
         help="'local' → DATABASE_URL_LOCAL, 'prod' → DATABASE_URL"
     )
     parser.add_argument(
+        "--parser", choices=["custom", "docling", "llm"], default="custom",
+        help="Chunking backend: 'custom' (default) = hand-crafted style parser; "
+             "'docling' = IBM Docling HybridChunker; "
+             "'llm' = custom chunks enriched by a GPT-4o-mini document map."
+    )
+    parser.add_argument(
+        "--refresh-maps", action="store_true",
+        help="Force regeneration of LLM document maps even if cached (llm parser only)."
+    )
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="Parse and report chunk stats without writing to the database."
     )
@@ -416,7 +858,15 @@ def main():
     if not docx_files:
         raise SystemExit(f"No matching DOCX files found in {COREP_DIR}/")
 
+    if args.parser == "docling":
+        parse_fn = lambda p: parse_docx_docling(p)
+    elif args.parser == "llm":
+        parse_fn = lambda p: parse_docx_llm(p, refresh_maps=args.refresh_maps)
+    else:
+        parse_fn = lambda p: parse_docx(p, verbose=args.verbose)
+
     print(f"Target:  {db_label}")
+    print(f"Parser:  {args.parser}")
     print(f"Mode:    {'DRY RUN — no DB writes' if args.dry_run else 'LIVE INGEST'}")
     print(f"Files:   {len(docx_files)}")
     print()
@@ -425,7 +875,7 @@ def main():
     all_chunks: list[dict] = []
     for docx_path in docx_files:
         print(f"  Parsing: {docx_path.name}")
-        file_chunks = parse_docx(docx_path, verbose=args.verbose)
+        file_chunks = parse_fn(docx_path)
         print(f"    -> {len(file_chunks)} chunks")
 
         if args.verbose:

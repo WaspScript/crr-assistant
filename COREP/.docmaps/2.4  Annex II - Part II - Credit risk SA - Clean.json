@@ -1,0 +1,71 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "Credit Risk Templates",
+      "level": 2,
+      "description": "Overview of templates used for reporting credit risk."
+    },
+    {
+      "heading": "3.1. General remarks",
+      "level": 3,
+      "description": "General information regarding credit risk templates."
+    },
+    {
+      "heading": "3.1.1. Reporting of CRM techniques with substitution effect",
+      "level": 3,
+      "description": "Instructions on reporting credit risk mitigation techniques."
+    },
+    {
+      "heading": "3.1.2. Reporting of Counterparty Credit Risk",
+      "level": 3,
+      "description": "Instructions for reporting exposures from counterparty credit risk."
+    },
+    {
+      "heading": "3.2. C 07.00 - Credit and counterparty credit risks and free deliveries: Standardised approach to Capital Requirements (CR SA)",
+      "level": 3,
+      "description": "Details on the CR SA template for credit risk reporting."
+    },
+    {
+      "heading": "3.2.1. General remarks",
+      "level": 4,
+      "description": "General information on the CR SA templates."
+    },
+    {
+      "heading": "3.2.2. Scope of the CR SA template",
+      "level": 4,
+      "description": "Scope and coverage of the CR SA template."
+    },
+    {
+      "heading": "3.2.3. Assignment of exposures to exposure classes under the Standardised approach",
+      "level": 4,
+      "description": "Guidelines for assigning exposures to different classes."
+    },
+    {
+      "heading": "3.2.4. Clarifications on the scope of some specific exposure classes referred to in Article 112 of Regulation (EU) No 575/2013",
+      "level": 4,
+      "description": "Clarifications regarding specific exposure classes."
+    },
+    {
+      "heading": "3.2.5. Instructions concerning specific positions",
+      "level": 4,
+      "description": "Instructions for reporting specific positions in the CR SA template."
+    }
+  ],
+  "templates": {
+    "C 07.00": {
+      "name": "Credit and counterparty credit risks and free deliveries: Standardised approach to Capital Requirements (CR SA)",
+      "description": "Reports on credit risk and counterparty credit risk exposures under the Standardised approach.",
+      "section_heading": "3.2. C 07.00 - Credit and counterparty credit risks and free deliveries: Standardised approach to Capital Requirements (CR SA)"
+    }
+  }
+}

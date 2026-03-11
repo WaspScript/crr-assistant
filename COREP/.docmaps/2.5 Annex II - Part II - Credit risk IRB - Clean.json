@@ -1,0 +1,116 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "3.3 Credit and counterparty credit risks and free deliveries: IRB approach to Own funds Requirements (CR IRB)",
+      "level": 2,
+      "description": "Overview of the CR IRB template and its scope."
+    },
+    {
+      "heading": "3.3.1. Scope of the CR IRB template",
+      "level": 3,
+      "description": "Details on what the CR IRB template covers and what it does not."
+    },
+    {
+      "heading": "3.3.2. Breakdown of the CR IRB template",
+      "level": 3,
+      "description": "Description of the seven templates that comprise the CR IRB."
+    },
+    {
+      "heading": "3.3.2a. Clarifications on the scope of some specific exposure classes referred to in Article 147 of Regulation (EU) No 575/2013",
+      "level": 3,
+      "description": "Clarifications regarding specific exposure classes."
+    },
+    {
+      "heading": "3.3.3. C 08.01 - Credit and counterparty credit risks and free deliveries: IRB approach to Capital Requirements (CR IRB 1)",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 1 template."
+    },
+    {
+      "heading": "3.3.4. C 08.02 - Credit and counterparty credit risks and free deliveries: IRB approach to capital requirements: breakdown by obligor grades or pools (CR IRB 2 template)",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 2 template."
+    },
+    {
+      "heading": "C 08.03 - Credit risk and free deliveries: IRB approach to Capital Requirements (breakdown by PD ranges (CR IRB 3))",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 3 template."
+    },
+    {
+      "heading": "C 08.04 - Credit risk and free deliveries: IRB approach to Capital Requirements (RWEA flow statements (CR IRB 4))",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 4 template."
+    },
+    {
+      "heading": "C 08.05 - Credit risk and free deliveries: IRB approach to Capital Requirements (Back-testing of PD (CR IRB 5))",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 5 template."
+    },
+    {
+      "heading": "C 08.05.1 - Credit risk and free deliveries: IRB approach to Capital Requirements: Back-testing of PD in accordance with Article 180(1), point (f), of Regulation (EU) No 575/2013 (CR IRB 5B)",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 5B template."
+    },
+    {
+      "heading": "C 08.06 - Credit risk and free deliveries: IRB approach to Capital Requirements (Specialised lending slotting approach (CR IRB 6))",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 6 template."
+    },
+    {
+      "heading": "C 08.07 - Credit risk and free deliveries: IRB approach to Capital Requirements (Scope of use of IRB and SA approaches (CR IRB 7))",
+      "level": 3,
+      "description": "Instructions for reporting on the CR IRB 7 template."
+    }
+  ],
+  "templates": {
+    "C 08.01": {
+      "name": "Credit and counterparty credit risks and free deliveries: IRB approach to Capital Requirements (CR IRB 1)",
+      "description": "Reports on the general overview of IRB exposures and methods to calculate risk weighted exposure amounts.",
+      "section_heading": "3.3.3. C 08.01 - Credit and counterparty credit risks and free deliveries: IRB approach to Capital Requirements (CR IRB 1)"
+    },
+    "C 08.02": {
+      "name": "Credit and counterparty credit risks and free deliveries: IRB approach to capital requirements: breakdown by obligor grades or pools (CR IRB 2 template)",
+      "description": "Reports on the breakdown of exposures assigned to obligor grades or pools.",
+      "section_heading": "3.3.4. C 08.02 - Credit and counterparty credit risks and free deliveries: IRB approach to capital requirements: breakdown by obligor grades or pools (CR IRB 2 template)"
+    },
+    "C 08.03": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements (breakdown by PD ranges (CR IRB 3))",
+      "description": "Reports on the main parameters used for the calculation of capital requirements for IRB approach.",
+      "section_heading": "C 08.03 - Credit risk and free deliveries: IRB approach to Capital Requirements (breakdown by PD ranges (CR IRB 3))"
+    },
+    "C 08.04": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements (RWEA flow statements (CR IRB 4))",
+      "description": "Reports on the changes in risk-weighted exposure amounts over reporting periods.",
+      "section_heading": "C 08.04 - Credit risk and free deliveries: IRB approach to Capital Requirements (RWEA flow statements (CR IRB 4))"
+    },
+    "C 08.05": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements (Back-testing of PD (CR IRB 5))",
+      "description": "Reports on the back-testing results of probability of default (PD) estimates.",
+      "section_heading": "C 08.05 - Credit risk and free deliveries: IRB approach to Capital Requirements (Back-testing of PD (CR IRB 5))"
+    },
+    "C 08.05.1": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements: Back-testing of PD in accordance with Article 180(1), point (f), of Regulation (EU) No 575/2013 (CR IRB 5B)",
+      "description": "Reports on back-testing of PD estimates in accordance with specific regulatory requirements.",
+      "section_heading": "C 08.05.1 - Credit risk and free deliveries: IRB approach to Capital Requirements: Back-testing of PD in accordance with Article 180(1), point (f), of Regulation (EU) No 575/2013 (CR IRB 5B)"
+    },
+    "C 08.06": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements (Specialised lending slotting approach (CR IRB 6))",
+      "description": "Reports on specialised lending exposures and their risk-weighted exposure amounts.",
+      "section_heading": "C 08.06 - Credit risk and free deliveries: IRB approach to Capital Requirements (Specialised lending slotting approach (CR IRB 6))"
+    },
+    "C 08.07": {
+      "name": "Credit risk and free deliveries: IRB approach to Capital Requirements (Scope of use of IRB and SA approaches (CR IRB 7))",
+      "description": "Reports on the allocation of exposures subject to IRB and Standardised approaches.",
+      "section_heading": "C 08.07 - Credit risk and free deliveries: IRB approach to Capital Requirements (Scope of use of IRB and SA approaches (CR IRB 7))"
+    }
+  }
+}

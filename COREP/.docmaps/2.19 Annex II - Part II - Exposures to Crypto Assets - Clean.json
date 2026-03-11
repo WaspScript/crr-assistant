@@ -1,0 +1,36 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "10. C 36.00 EXPOSURES TO CRYPTO ASSETS",
+      "level": 2,
+      "description": "Details on reporting exposures to crypto assets."
+    },
+    {
+      "heading": "10.1 General remarks",
+      "level": 3,
+      "description": "Overview of the template's purpose and requirements."
+    },
+    {
+      "heading": "10.2 instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for specific data points within the template."
+    }
+  ],
+  "templates": {
+    "C 36.00": {
+      "name": "C 36.00 - EXPOSURES TO CRYPTO ASSETS",
+      "description": "Reports information on exposures to crypto assets as required under Article 501d of Regulation (EU) No 575/2013.",
+      "section_heading": "10. C 36.00 EXPOSURES TO CRYPTO ASSETS"
+    }
+  }
+}

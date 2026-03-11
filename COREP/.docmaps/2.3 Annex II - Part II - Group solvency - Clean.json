@@ -1,0 +1,56 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "GROUP SOLVENCY: INFORMATION ON AFFILIATES (GS)",
+      "level": 2,
+      "description": "Information regarding the group solvency and its affiliates."
+    },
+    {
+      "heading": "2.1. General remarks",
+      "level": 3,
+      "description": "General instructions for reporting templates C 06.01 and C 06.02."
+    },
+    {
+      "heading": "2.2. Detailed group solvency information",
+      "level": 3,
+      "description": "Details on group solvency information required in template C 06.02."
+    },
+    {
+      "heading": "2.3. Information on the contributions of individual entities to group solvency",
+      "level": 3,
+      "description": "Instructions on reporting contributions of individual entities to group solvency."
+    },
+    {
+      "heading": "2.4. C 06.01 – GROUP SOLVENCY: INFORMATION ON AFFILIATES – Total (GS Total)",
+      "level": 3,
+      "description": "Reporting instructions for template C 06.01."
+    },
+    {
+      "heading": "2.5. C 06.02 – GROUP SOLVENCY: INFORMATION ON AFFILIATES (GS)",
+      "level": 3,
+      "description": "Reporting instructions for template C 06.02."
+    }
+  ],
+  "templates": {
+    "C 06.01": {
+      "name": "GROUP SOLVENCY: INFORMATION ON AFFILIATES – Total (GS Total)",
+      "description": "Reports total contributions of entities within the scope of consolidation to group solvency.",
+      "section_heading": "2.4. C 06.01 – GROUP SOLVENCY: INFORMATION ON AFFILIATES – Total (GS Total)"
+    },
+    "C 06.02": {
+      "name": "GROUP SOLVENCY: INFORMATION ON AFFILIATES (GS)",
+      "description": "Gathers detailed information on all entities within the scope of consolidation regarding their solvency.",
+      "section_heading": "2.5. C 06.02 – GROUP SOLVENCY: INFORMATION ON AFFILIATES (GS)"
+    }
+  }
+}

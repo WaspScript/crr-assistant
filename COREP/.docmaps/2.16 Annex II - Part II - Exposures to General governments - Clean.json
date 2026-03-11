@@ -1,0 +1,66 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "7. C 33.00 - Exposures to General governments (GOV)",
+      "level": 2,
+      "description": "Details regarding the reporting of exposures to general governments."
+    },
+    {
+      "heading": "7.1. General remarks",
+      "level": 3,
+      "description": "General information regarding the template C 33.00."
+    },
+    {
+      "heading": "7.2. Scope of the template on exposures to “General governments”",
+      "level": 3,
+      "description": "Scope and coverage of the GOV template."
+    },
+    {
+      "heading": "7.3. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for reporting specific positions in the template."
+    },
+    {
+      "heading": "BREAKDOWN OF EXPOSURES BY REGULATORY APPROACH",
+      "level": 3,
+      "description": "Instructions for breaking down exposures based on regulatory approaches."
+    },
+    {
+      "heading": "BREAKDOWN OF EXPOSURES BY RESIDUAL MATURITY",
+      "level": 3,
+      "description": "Instructions for breaking down exposures based on residual maturity."
+    }
+  ],
+  "templates": {
+    "C 33.00": {
+      "name": "C 33.00 - Exposures to General governments (GOV)",
+      "description": "Reports on all exposures to general governments, including on-balance sheet, off-balance sheet, and derivatives.",
+      "section_heading": "7. C 33.00 - Exposures to General governments (GOV)"
+    },
+    "C 07.00": {
+      "name": "C 07.00 - Exposures to Central governments",
+      "description": "Reports exposures to central governments as specified in Regulation (EU) No 575/2013.",
+      "section_heading": "7.1. General remarks"
+    },
+    "C 08.01": {
+      "name": "C 08.01 - Exposures to Regional governments or local authorities",
+      "description": "Reports exposures to regional governments or local authorities as specified in Regulation (EU) No 575/2013.",
+      "section_heading": "7.1. General remarks"
+    },
+    "C 08.02": {
+      "name": "C 08.02 - Exposures to Public sector entities",
+      "description": "Reports exposures to public sector entities as specified in Regulation (EU) No 575/2013.",
+      "section_heading": "7.1. General remarks"
+    }
+  }
+}

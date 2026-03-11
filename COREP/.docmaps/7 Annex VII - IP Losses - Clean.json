@@ -1,0 +1,56 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX VII",
+      "level": 1,
+      "description": "Instructions for reporting on losses stemming from lending collateralised by immovable property."
+    },
+    {
+      "heading": "1. Reporting scope",
+      "level": 2,
+      "description": "Details the institutions required to report data related to immovable property."
+    },
+    {
+      "heading": "2. Definitions",
+      "level": 2,
+      "description": "Defines key terms and concepts relevant to the reporting of losses."
+    },
+    {
+      "heading": "3. Geographical breakdown",
+      "level": 2,
+      "description": "Outlines the templates to be reported based on geographical exposure."
+    },
+    {
+      "heading": "4. Reporting of exposures and losses",
+      "level": 2,
+      "description": "Describes how exposures and losses should be reported."
+    },
+    {
+      "heading": "5. Instructions concerning specific positions",
+      "level": 2,
+      "description": "Provides specific instructions related to reporting positions."
+    }
+  ],
+  "templates": {
+    "C 15.00": {
+      "name": "C 15.00 - Exposures secured by immovable property",
+      "description": "Reports exposures secured by residential and commercial immovable property, detailing the risk-weighted exposure amount.",
+      "section_heading": "4. Reporting of exposures and losses"
+    },
+    "0010": {
+      "name": "Column 0010 - Sum of losses stemming from lending up to the reference percentages",
+      "description": "Collects losses from exposures with collateral up to 55% of the property value.",
+      "section_heading": "5. Instructions concerning specific positions"
+    },
+    "0030": {
+      "name": "Column 0030 - Sum of overall losses",
+      "description": "Collects overall losses from exposures with collateral up to 100% of the property value.",
+      "section_heading": "5. Instructions concerning specific positions"
+    },
+    "0050": {
+      "name": "Column 0050 - Sum of the exposures",
+      "description": "Reports exposure values for collateralised residential and commercial immovable property up to 100% of the property value.",
+      "section_heading": "5. Instructions concerning specific positions"
+    }
+  }
+}

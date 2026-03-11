@@ -1,0 +1,61 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "5.8. C 25.01 - CREDIT VALUATION ADJUSTMENT RISK (CVA)",
+      "level": 2,
+      "description": "Details regarding the reporting of credit valuation adjustment risk."
+    },
+    {
+      "heading": "5.8.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for reporting specific positions related to CVA."
+    },
+    {
+      "heading": "Rows",
+      "level": 2,
+      "description": "Detailed rows for reporting various metrics related to CVA."
+    },
+    {
+      "heading": "0040-0220 | MEMORANDUM ITEMS",
+      "level": 2,
+      "description": "Memorandum items related to CVA exemptions and reintegration."
+    },
+    {
+      "heading": "0140-0160 | CVA hedges",
+      "level": 2,
+      "description": "Reporting on CVA hedges."
+    },
+    {
+      "heading": "0170-0220 | Counterparty types of transactions subject to the SA-CVA approach",
+      "level": 2,
+      "description": "Reporting on different counterparty types for SA-CVA."
+    },
+    {
+      "heading": "0230 | Aggregation of systematic components of CVA risk",
+      "level": 2,
+      "description": "Reporting on systematic components of CVA risk."
+    },
+    {
+      "heading": "0240 | Aggregation of idiosyncratic components of CVA risk",
+      "level": 2,
+      "description": "Reporting on idiosyncratic components of CVA risk."
+    }
+  ],
+  "templates": {
+    "C25.01": {
+      "name": "C 25.01 - CREDIT VALUATION ADJUSTMENT RISK (CVA)",
+      "description": "Reports on the own funds requirements for credit valuation adjustment risk.",
+      "section_heading": "5.8. C 25.01 - CREDIT VALUATION ADJUSTMENT RISK (CVA)"
+    }
+  }
+}

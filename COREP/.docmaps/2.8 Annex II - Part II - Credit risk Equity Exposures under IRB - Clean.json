@@ -1,0 +1,41 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "3.5. C 10.01 and C 10.02 – Equity exposures under the internal ratings based approach (CR EQU IRB 1 and CR EQU IRB 2)",
+      "level": 3,
+      "description": "Details on equity exposures under the internal ratings based approach."
+    },
+    {
+      "heading": "3.5.1. General remarks",
+      "level": 4,
+      "description": "Overview of the CR EQU IRB template and its components."
+    },
+    {
+      "heading": "3.5.2. Instructions concerning specific positions (applicable to both CR EQU IRB 1 and CR EQU IRB 2)",
+      "level": 4,
+      "description": "Specific instructions for reporting positions in the CR EQU IRB templates."
+    }
+  ],
+  "templates": {
+    "C 10.01": {
+      "name": "CR EQU IRB 1 – Equity exposures under the internal ratings based approach",
+      "description": "Reports a general overview of IRB exposures of the equity exposure class and methods to calculate total risk exposure amounts.",
+      "section_heading": "3.5. C 10.01 and C 10.02 – Equity exposures under the internal ratings based approach (CR EQU IRB 1 and CR EQU IRB 2)"
+    },
+    "C 10.02": {
+      "name": "CR EQU IRB 2 – Equity exposures under the internal ratings based approach",
+      "description": "Provides a breakdown of total exposures assigned to obligor grades in the context of the PD/LGD approach.",
+      "section_heading": "3.5. C 10.01 and C 10.02 – Equity exposures under the internal ratings based approach (CR EQU IRB 1 and CR EQU IRB 2)"
+    }
+  }
+}

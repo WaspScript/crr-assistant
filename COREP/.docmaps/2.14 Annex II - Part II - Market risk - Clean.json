@@ -1,0 +1,161 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 1,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "5. Market Risk Templates",
+      "level": 2,
+      "description": "Instructions for reporting market risk templates."
+    },
+    {
+      "heading": "5.1. C 18.01 – Market Risk: Simplified Standardised Approach for Position Risks in Traded Debt Instruments (MKR SSA TDI)",
+      "level": 2,
+      "description": "Template for reporting position risks on traded debt instruments."
+    },
+    {
+      "heading": "5.1.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA TDI template."
+    },
+    {
+      "heading": "5.1.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA TDI template."
+    },
+    {
+      "heading": "5.2. C 19.01 – Market Risk: Simplified Standardised Approach for specific risk in securitisations (MKR SSA SEC)",
+      "level": 2,
+      "description": "Template for reporting specific risk in securitisations."
+    },
+    {
+      "heading": "5.2.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA SEC template."
+    },
+    {
+      "heading": "5.2.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA SEC template."
+    },
+    {
+      "heading": "5.3. C 20.01 – Market risk: Simplified Standardised Approach for Specific risk for positions assigned to the correlation trading portfolio (MKR SSA CTP)",
+      "level": 2,
+      "description": "Template for reporting specific risk for positions in the correlation trading portfolio."
+    },
+    {
+      "heading": "5.3.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA CTP template."
+    },
+    {
+      "heading": "5.3.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA CTP template."
+    },
+    {
+      "heading": "5.4. C 21.01 - Market Risk: Simplified Standardised Approach for Position Risk in Equities (MKR SSA EQU)",
+      "level": 2,
+      "description": "Template for reporting position risk in equities."
+    },
+    {
+      "heading": "5.4.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA EQU template."
+    },
+    {
+      "heading": "5.4.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA EQU template."
+    },
+    {
+      "heading": "5.5. C 22.01 - Market Risk: Simplified Standardised Approach for Foreign Exchange Risk (MKR SSA FX)",
+      "level": 2,
+      "description": "Template for reporting foreign exchange risk."
+    },
+    {
+      "heading": "5.5.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA FX template."
+    },
+    {
+      "heading": "5.5.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA FX template."
+    },
+    {
+      "heading": "5.6. C 23.01 - Market Risk: Simplified Standardised Approach for Commodities risk (MKR SSA COM)",
+      "level": 2,
+      "description": "Template for reporting commodities risk."
+    },
+    {
+      "heading": "5.6.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR SSA COM template."
+    },
+    {
+      "heading": "5.6.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR SSA COM template."
+    },
+    {
+      "heading": "5.7. C 24.00 - Market Risk Internal Model (MKR IM)",
+      "level": 2,
+      "description": "Template for reporting internal model calculations for market risk."
+    },
+    {
+      "heading": "5.7.1. General Remarks",
+      "level": 3,
+      "description": "Overview of the MKR IM template."
+    },
+    {
+      "heading": "5.7.2. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Detailed instructions for filling out the MKR IM template."
+    }
+  ],
+  "templates": {
+    "C 18.01": {
+      "name": "Market Risk: Simplified Standardised Approach for Position Risks in Traded Debt Instruments (MKR SSA TDI)",
+      "description": "Reports position risks on traded debt instruments under the Standardised Approach.",
+      "section_heading": "5.1. C 18.01 – Market Risk: Simplified Standardised Approach for Position Risks in Traded Debt Instruments (MKR SSA TDI)"
+    },
+    "C 19.01": {
+      "name": "Market Risk: Simplified Standardised Approach for specific risk in securitisations (MKR SSA SEC)",
+      "description": "Reports specific risk in securitisations held in the trading book.",
+      "section_heading": "5.2. C 19.01 – Market Risk: Simplified Standardised Approach for specific risk in securitisations (MKR SSA SEC)"
+    },
+    "C 20.01": {
+      "name": "Market risk: Simplified Standardised Approach for Specific risk for positions assigned to the correlation trading portfolio (MKR SSA CTP)",
+      "description": "Reports specific risk for positions in the correlation trading portfolio.",
+      "section_heading": "5.3. C 20.01 – Market risk: Simplified Standardised Approach for Specific risk for positions assigned to the correlation trading portfolio (MKR SSA CTP)"
+    },
+    "C 21.01": {
+      "name": "Market Risk: Simplified Standardised Approach for Position Risk in Equities (MKR SSA EQU)",
+      "description": "Reports position risk in equities held in the trading book.",
+      "section_heading": "5.4. C 21.01 - Market Risk: Simplified Standardised Approach for Position Risk in Equities (MKR SSA EQU)"
+    },
+    "C 22.01": {
+      "name": "Market Risk: Simplified Standardised Approach for Foreign Exchange Risk (MKR SSA FX)",
+      "description": "Reports positions and own funds requirements for foreign exchange risk.",
+      "section_heading": "5.5. C 22.01 - Market Risk: Simplified Standardised Approach for Foreign Exchange Risk (MKR SSA FX)"
+    },
+    "C 23.01": {
+      "name": "Market Risk: Simplified Standardised Approach for Commodities risk (MKR SSA COM)",
+      "description": "Reports positions and own funds requirements for commodities risk.",
+      "section_heading": "5.6. C 23.01 - Market Risk: Simplified Standardised Approach for Commodities risk (MKR SSA COM)"
+    },
+    "C 24.00": {
+      "name": "Market Risk Internal Model (MKR IM)",
+      "description": "Reports VaR and stressed VaR figures for different market risks.",
+      "section_heading": "5.7. C 24.00 - Market Risk Internal Model (MKR IM)"
+    }
+  }
+}

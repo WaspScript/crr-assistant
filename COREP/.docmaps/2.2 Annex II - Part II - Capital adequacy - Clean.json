@@ -1,0 +1,116 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 1,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "1. Capital Adequacy Overview (‘CA’)",
+      "level": 2,
+      "description": "Overview of capital adequacy templates and their purposes."
+    },
+    {
+      "heading": "1.1. General remarks",
+      "level": 3,
+      "description": "General information about the CA templates."
+    },
+    {
+      "heading": "1.2. C 01.00 - OWN FUNDS (CA1)",
+      "level": 2,
+      "description": "Template CA1 reporting the own funds of institutions."
+    },
+    {
+      "heading": "1.2.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for specific positions in the CA1 template."
+    },
+    {
+      "heading": "1.3. C 02.00 - OWN FUNDS REQUIREMENTS (CA2)",
+      "level": 2,
+      "description": "Template CA2 reporting the own funds requirements."
+    },
+    {
+      "heading": "1.3.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for specific positions in the CA2 template."
+    },
+    {
+      "heading": "1.4. C 03.00 - CAPITAL RATIOS AND CAPITAL LEVELS (CA3)",
+      "level": 2,
+      "description": "Template CA3 reporting capital ratios and levels."
+    },
+    {
+      "heading": "1.4.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for specific positions in the CA3 template."
+    },
+    {
+      "heading": "1.5. C 04.00 - MEMORANDUM ITEMS (CA4)",
+      "level": 2,
+      "description": "Template CA4 reporting memorandum items."
+    },
+    {
+      "heading": "1.5.1. Instructions concerning specific positions",
+      "level": 3,
+      "description": "Instructions for specific positions in the CA4 template."
+    },
+    {
+      "heading": "1.6. TRANSITIONAL PROVISIONS and GRANDFATHERED INSTRUMENTS: INSTRUMENTS NOT CONSTITUTING STATE AID (CA5)",
+      "level": 2,
+      "description": "Template CA5 reporting transitional provisions and grandfathered instruments."
+    },
+    {
+      "heading": "1.6.1. General remarks",
+      "level": 3,
+      "description": "General remarks about the CA5 template."
+    },
+    {
+      "heading": "1.6.2. C 05.01 - TRANSITIONAL PROVISIONS (CA5.1)",
+      "level": 3,
+      "description": "Template CA5.1 reporting transitional provisions."
+    },
+    {
+      "heading": "1.6.3. C 05.02 - GRANDFATHERED INSTRUMENTS: INSTRUMENTS NOT CONSTITUTING STATE AID (CA5.2)",
+      "level": 3,
+      "description": "Template CA5.2 reporting grandfathered instruments."
+    }
+  ],
+  "templates": {
+    "CA1": {
+      "name": "C 01.00 - OWN FUNDS",
+      "description": "Reports the own funds of institutions, including Tier 1 and Tier 2 capital.",
+      "section_heading": "1.2. C 01.00 - OWN FUNDS (CA1)"
+    },
+    "CA2": {
+      "name": "C 02.00 - OWN FUNDS REQUIREMENTS",
+      "description": "Reports the own funds requirements of institutions.",
+      "section_heading": "1.3. C 02.00 - OWN FUNDS REQUIREMENTS (CA2)"
+    },
+    "CA3": {
+      "name": "C 03.00 - CAPITAL RATIOS AND CAPITAL LEVELS",
+      "description": "Reports capital ratios and levels of institutions.",
+      "section_heading": "1.4. C 03.00 - CAPITAL RATIOS AND CAPITAL LEVELS (CA3)"
+    },
+    "CA4": {
+      "name": "C 04.00 - MEMORANDUM ITEMS",
+      "description": "Reports memorandum items related to capital.",
+      "section_heading": "1.5. C 04.00 - MEMORANDUM ITEMS (CA4)"
+    },
+    "CA5.1": {
+      "name": "C 05.01 - TRANSITIONAL PROVISIONS",
+      "description": "Reports transitional provisions affecting own funds components.",
+      "section_heading": "1.6.2. C 05.01 - TRANSITIONAL PROVISIONS (CA5.1)"
+    },
+    "CA5.2": {
+      "name": "C 05.02 - GRANDFATHERED INSTRUMENTS: INSTRUMENTS NOT CONSTITUTING STATE AID",
+      "description": "Reports grandfathered instruments not constituting state aid.",
+      "section_heading": "1.6.3. C 05.02 - GRANDFATHERED INSTRUMENTS: INSTRUMENTS NOT CONSTITUTING STATE AID (CA5.2)"
+    }
+  }
+}

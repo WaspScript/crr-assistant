@@ -1,0 +1,131 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "Counterparty Credit Risk",
+      "level": 2,
+      "description": "Overview of counterparty credit risk templates and their scope."
+    },
+    {
+      "heading": "C 34.01 - Size of the derivative business",
+      "level": 2,
+      "description": "Reports on the size of the derivative business and compliance with thresholds."
+    },
+    {
+      "heading": "C 34.02 - CCR exposures by approach",
+      "level": 2,
+      "description": "Reports CCR exposures separately for all approaches."
+    },
+    {
+      "heading": "C 34.03 - CCR exposures treated with standardised approaches: SA-CCR and Simplified SA-CCR",
+      "level": 2,
+      "description": "Reports CCR exposures calculated with SA-CCR or Simplified SA-CCR."
+    },
+    {
+      "heading": "C 34.04 - CCR exposures treated with the Original Exposure Method (OEM)",
+      "level": 2,
+      "description": "Reports CCR exposures calculated using the Original Exposure Method."
+    },
+    {
+      "heading": "C 34.05 – CCR exposures treated with the Internal Model Method (IMM)",
+      "level": 2,
+      "description": "Reports CCR exposures calculated using the Internal Model Method."
+    },
+    {
+      "heading": "C 34.06 – Top twenty counterparties",
+      "level": 2,
+      "description": "Reports information on the top 20 counterparties with highest CCR exposures."
+    },
+    {
+      "heading": "C 34.07 - IRB approach – CCR exposures by exposure class and PD scale",
+      "level": 2,
+      "description": "Reports CCR exposures using the IRB approach by exposure class and PD scale."
+    },
+    {
+      "heading": "C 34.08 - Composition of collateral for CCR exposures",
+      "level": 2,
+      "description": "Reports fair values of collateral used in CCR exposures."
+    },
+    {
+      "heading": "C 34.09 - Credit derivatives exposures",
+      "level": 2,
+      "description": "Reports on credit derivative protection bought or sold."
+    },
+    {
+      "heading": "C 34.10 - Exposures to CCPs",
+      "level": 2,
+      "description": "Reports information on exposures to central counterparties."
+    },
+    {
+      "heading": "C 34.11 - Risk weighted exposure amounts (RWEA) flow statements of CCR exposures under the IMM",
+      "level": 2,
+      "description": "Reports flow statements explaining changes in RWEA of CCR exposures under the IMM."
+    }
+  ],
+  "templates": {
+    "C 34.01": {
+      "name": "C 34.01 - Size of the derivative business",
+      "description": "Reports the size of the derivative business and compliance with thresholds.",
+      "section_heading": "C 34.01 - Size of the derivative business"
+    },
+    "C 34.02": {
+      "name": "C 34.02 - CCR exposures by approach",
+      "description": "Reports CCR exposures separately for all CCR exposures and for all CCR exposures excluding exposures to central counterparties.",
+      "section_heading": "C 34.02 - CCR exposures by approach"
+    },
+    "C 34.03": {
+      "name": "C 34.03 - CCR exposures treated with standardised approaches: SA-CCR and Simplified SA-CCR",
+      "description": "Reports CCR exposures calculated with the SA-CCR or the Simplified SA-CCR.",
+      "section_heading": "C 34.03 - CCR exposures treated with standardised approaches: SA-CCR and Simplified SA-CCR"
+    },
+    "C 34.04": {
+      "name": "C 34.04 - CCR exposures treated with the Original Exposure Method (OEM)",
+      "description": "Reports CCR exposures calculated using the Original Exposure Method.",
+      "section_heading": "C 34.04 - CCR exposures treated with the Original Exposure Method (OEM)"
+    },
+    "C 34.05": {
+      "name": "C 34.05 – CCR exposures treated with the Internal Model Method (IMM)",
+      "description": "Reports CCR exposures calculated using the Internal Model Method.",
+      "section_heading": "C 34.05 – CCR exposures treated with the Internal Model Method (IMM)"
+    },
+    "C 34.06": {
+      "name": "C 34.06 – Top twenty counterparties",
+      "description": "Reports information on the top 20 counterparties with highest CCR exposures.",
+      "section_heading": "C 34.06 – Top twenty counterparties"
+    },
+    "C 34.07": {
+      "name": "C 34.07 - IRB approach – CCR exposures by exposure class and PD scale",
+      "description": "Reports CCR exposures using the IRB approach by exposure class and PD scale.",
+      "section_heading": "C 34.07 - IRB approach – CCR exposures by exposure class and PD scale"
+    },
+    "C 34.08": {
+      "name": "C 34.08 - Composition of collateral for CCR exposures",
+      "description": "Reports fair values of collateral used in CCR exposures.",
+      "section_heading": "C 34.08 - Composition of collateral for CCR exposures"
+    },
+    "C 34.09": {
+      "name": "C 34.09 - Credit derivatives exposures",
+      "description": "Reports on credit derivative protection bought or sold.",
+      "section_heading": "C 34.09 - Credit derivatives exposures"
+    },
+    "C 34.10": {
+      "name": "C 34.10 - Exposures to CCPs",
+      "description": "Reports information on exposures to central counterparties.",
+      "section_heading": "C 34.10 - Exposures to CCPs"
+    },
+    "C 34.11": {
+      "name": "C 34.11 - Risk weighted exposure amounts (RWEA) flow statements of CCR exposures under the IMM",
+      "description": "Reports flow statements explaining changes in RWEA of CCR exposures under the IMM.",
+      "section_heading": "C 34.11 - Risk weighted exposure amounts (RWEA) flow statements of CCR exposures under the IMM"
+    }
+  }
+}

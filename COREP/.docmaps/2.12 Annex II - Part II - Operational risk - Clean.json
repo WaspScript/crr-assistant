@@ -1,0 +1,91 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 1,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "4. Operational Risk Templates",
+      "level": 2,
+      "description": "Overview of templates related to operational risk."
+    },
+    {
+      "heading": "4.1. Reporting of own funds requirements for Operational risk",
+      "level": 2,
+      "description": "Instructions for reporting own funds requirements for operational risk."
+    },
+    {
+      "heading": "4.1.1. General Remarks",
+      "level": 3,
+      "description": "General instructions regarding the reporting of operational risk."
+    },
+    {
+      "heading": "4.1.2. C 16.01 Operational Risk – Own funds requirements (OPR OFR)",
+      "level": 3,
+      "description": "Details on the C 16.01 template for reporting operational risk own funds requirements."
+    },
+    {
+      "heading": "4.2. Operational Risk: Detailed information on losses in the last year (OPR DETAILS)",
+      "level": 2,
+      "description": "Instructions for reporting detailed information on operational risk losses."
+    },
+    {
+      "heading": "4.2.1. General Remarks",
+      "level": 3,
+      "description": "General instructions regarding the reporting of operational risk losses."
+    },
+    {
+      "heading": "4.2.2. C 17.01: Operational risk losses and recoveries by business lines and loss event types in the last year (OPR DETAILS 1)",
+      "level": 3,
+      "description": "Details on the C 17.01 template for reporting operational risk losses and recoveries."
+    },
+    {
+      "heading": "4.2.2.1. General Remarks",
+      "level": 4,
+      "description": "General instructions regarding the C 17.01 template."
+    },
+    {
+      "heading": "4.2.2.2. Instructions concerning specific positions",
+      "level": 4,
+      "description": "Specific instructions for reporting positions in the C 17.01 template."
+    },
+    {
+      "heading": "4.2.3. C 17.02: Operational risk: Detailed information on the largest loss events in the last year (OPR DETAILS 2)",
+      "level": 3,
+      "description": "Details on the C 17.02 template for reporting the largest operational risk loss events."
+    },
+    {
+      "heading": "4.2.3.1. General Remarks",
+      "level": 4,
+      "description": "General instructions regarding the C 17.02 template."
+    },
+    {
+      "heading": "4.2.3.2. Instructions concerning specific positions",
+      "level": 4,
+      "description": "Specific instructions for reporting positions in the C 17.02 template."
+    }
+  ],
+  "templates": {
+    "C 16.01": {
+      "name": "C 16.01 Operational Risk – Own funds requirements (OPR OFR)",
+      "description": "Reports the own funds requirements for operational risk under the Business Indicator Component (BIC).",
+      "section_heading": "4.1.2. C 16.01 Operational Risk – Own funds requirements (OPR OFR)"
+    },
+    "C 17.01": {
+      "name": "C 17.01: Operational risk losses and recoveries by business lines and loss event types in the last year (OPR DETAILS 1)",
+      "description": "Summarises information on losses and recoveries above internal thresholds registered by an institution in the last year by event types and business lines.",
+      "section_heading": "4.2.2. C 17.01: Operational risk losses and recoveries by business lines and loss event types in the last year (OPR DETAILS 1)"
+    },
+    "C 17.02": {
+      "name": "C 17.02: Operational risk: Detailed information on the largest loss events in the last year (OPR DETAILS 2)",
+      "description": "Provides detailed information on individual loss events entailing a gross loss amount of EUR100,000 or more.",
+      "section_heading": "4.2.3. C 17.02: Operational risk: Detailed information on the largest loss events in the last year (OPR DETAILS 2)"
+    }
+  }
+}

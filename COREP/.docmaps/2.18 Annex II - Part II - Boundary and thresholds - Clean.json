@@ -1,0 +1,51 @@
+{
+  "sections": [
+    {
+      "heading": "ANNEX II",
+      "level": 1,
+      "description": "Instructions for reporting on own funds and own funds requirements."
+    },
+    {
+      "heading": "PART II: TEMPLATE RELATED INSTRUCTIONS",
+      "level": 2,
+      "description": "Instructions related to specific reporting templates."
+    },
+    {
+      "heading": "9. Trading book and market risk thresholds, the boundary between trading book and non-trading book and reclassifications",
+      "level": 3,
+      "description": "Details on trading book thresholds and reclassifications."
+    },
+    {
+      "heading": "9.1 C 90.00 – Trading book and market risk thresholds",
+      "level": 4,
+      "description": "Template for reporting trading book and market risk thresholds."
+    },
+    {
+      "heading": "9.2 The boundary between trading book and non-trading book (BOU)",
+      "level": 4,
+      "description": "Information on the composition of the trading book."
+    },
+    {
+      "heading": "9.3 C 24.01 - Trading book boundary - Reclassifications between books (MOV)",
+      "level": 4,
+      "description": "Template for reporting reclassifications between trading and non-trading books."
+    }
+  ],
+  "templates": {
+    "C 90.00": {
+      "name": "C 90.00 – Trading book and market risk thresholds",
+      "description": "Reports the results of calculations related to trading book thresholds and market risk.",
+      "section_heading": "9.1 C 90.00 – Trading book and market risk thresholds"
+    },
+    "C 90.05": {
+      "name": "C 90.05 – Boundary: Trading book (BOU1)",
+      "description": "Reports information on the composition of the trading book.",
+      "section_heading": "9.2.2 C 90.05 – Boundary: Trading book (BOU1)"
+    },
+    "C 24.01": {
+      "name": "C 24.01 - Trading book boundary - Reclassifications between books (MOV)",
+      "description": "Reports information on the reclassification of positions between trading and non-trading books.",
+      "section_heading": "9.3 C 24.01 - Trading book boundary - Reclassifications between books (MOV)"
+    }
+  }
+}
