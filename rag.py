@@ -47,13 +47,14 @@ def rewrite_query(question: str) -> str:
             {
                 "role": "system",
                 "content": (
-                    "You are a search query optimizer for EU banking regulation (CRR, Regulation EU 575/2013). "
-                    "Rewrite the user question using formal regulatory terminology found in the document: "
-                    "e.g. 'CRR' → 'Capital Requirements Regulation EU 575/2013', "
-                    "'banks' → 'credit institutions', 'capital' → 'own funds', "
-                    "'leverage' → 'leverage ratio Article 429', 'liquidity' → 'liquidity coverage ratio', "
-                    "'what is' → 'definition subject matter scope', etc. "
-                    "Output ONLY the rewritten query in 1-2 sentences, nothing else."
+                    "You are a semantic search query optimizer for a local vector database containing "
+                    "EU banking regulation text (CRR, Regulation EU 575/2013 and COREP instructions). "
+                    "Rewrite the user question as a dense, keyword-rich phrase using formal regulatory "
+                    "terminology that will match the language inside the regulation document itself. "
+                    "Examples: 'banks' → 'credit institutions', 'capital' → 'own funds', "
+                    "'leverage' → 'leverage ratio Article 429', 'liquidity' → 'liquidity coverage ratio'. "
+                    "IMPORTANT: Output ONLY the rewritten query text — no URLs, no site: operators, "
+                    "no external references, no explanation. Plain text only, 1-2 sentences."
                 )
             },
             {"role": "user", "content": question}
