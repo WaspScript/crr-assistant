@@ -94,12 +94,11 @@
     }
     .info-icon:hover { background: #a8b8cc; }
     .info-popover {
-      display: none; position: absolute; z-index: 200;
+      display: none; position: fixed; z-index: 500;
       background: #fff; border: 1px solid #c5ccd6;
       border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.13);
       padding: 10px 13px; max-width: 260px; min-width: 200px;
       font-size: 0.78rem; line-height: 1.5; color: #334;
-      margin-top: 4px; top: 100%; left: 0;
     }
     .info-popover.visible { display: block; }
     .setting-group select {
@@ -549,7 +548,14 @@
     const el = document.getElementById(id);
     const wasVisible = el.classList.contains('visible');
     document.querySelectorAll('.info-popover').forEach(p => p.classList.remove('visible'));
-    if (!wasVisible) el.classList.add('visible');
+    if (!wasVisible) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      el.style.top  = (rect.bottom + 6) + 'px';
+      // prevent right-edge overflow
+      const left = Math.min(rect.left, window.innerWidth - 270);
+      el.style.left = left + 'px';
+      el.classList.add('visible');
+    }
   }
   document.addEventListener('click', () => {
     document.querySelectorAll('.info-popover').forEach(p => p.classList.remove('visible'));
