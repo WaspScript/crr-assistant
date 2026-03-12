@@ -1,9 +1,13 @@
 import os
+import re
 import json
 from dotenv import load_dotenv
 from openai import OpenAI
 import psycopg2
 from pgvector.psycopg2 import register_vector
+
+# Detects explicit article references like "article 92", "Article 201(1)"
+_ARTICLE_RE = re.compile(r'\barticle\s+(\d+)\b', re.IGNORECASE)
 
 load_dotenv(override=True)
 
@@ -119,6 +123,8 @@ def retrieve(question: str, top_k: int = 5,
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     register_vector(conn)
     cur = conn.cursor()
+
+    # Vector search
     cur.execute(
         """SELECT content, source, breadcrumb FROM documents
            ORDER BY embedding <=> %s::vector
@@ -129,6 +135,28 @@ def retrieve(question: str, top_k: int = 5,
         {"content": r[0], "source": r[1] or "CRR", "breadcrumb": r[2] or ""}
         for r in cur.fetchall()
     ]
+
+    # Article number guarantee: if query names specific articles, always include
+    # their actual text — vector search alone misses them due to HyDE mismatch
+    # and cross-reference pollution.
+    article_nums = _ARTICLE_RE.findall(question)
+    if article_nums:
+        seen = {r["content"] for r in rows}
+        for art_num in article_nums[:3]:
+            # Match chunks that ARE Article N (header line: "\nArticle N - " or "\nArticle N\n")
+            # This excludes mere cross-references like "...in accordance with Article 201..."
+            cur.execute(
+                """SELECT content, source, breadcrumb FROM documents
+                   WHERE content ~ %s
+                   ORDER BY embedding <=> %s::vector
+                   LIMIT %s""",
+                (rf'\nArticle {art_num}[ \-]', embedding, 3)
+            )
+            for r in cur.fetchall():
+                if r[0] not in seen:
+                    seen.add(r[0])
+                    rows.append({"content": r[0], "source": r[1] or "CRR", "breadcrumb": r[2] or ""})
+
     cur.close()
     conn.close()
     return rows, effective_query
