@@ -72,6 +72,7 @@
       flex-direction: column;
       gap: 5px;
       min-width: 130px;
+      position: relative;
     }
     .setting-group label {
       font-size: 0.75rem;
@@ -79,7 +80,28 @@
       color: #556;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
+    .info-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: #c8d2de; color: #1a3c6e;
+      font-size: 0.60rem; font-weight: 700; font-style: normal;
+      border: none; cursor: pointer; flex-shrink: 0;
+      line-height: 1; transition: background 0.15s;
+    }
+    .info-icon:hover { background: #a8b8cc; }
+    .info-popover {
+      display: none; position: absolute; z-index: 200;
+      background: #fff; border: 1px solid #c5ccd6;
+      border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      padding: 10px 13px; max-width: 260px; min-width: 200px;
+      font-size: 0.78rem; line-height: 1.5; color: #334;
+      margin-top: 4px; top: 100%; left: 0;
+    }
+    .info-popover.visible { display: block; }
     .setting-group select {
       padding: 7px 10px;
       border: 1px solid #cdd3db;
@@ -419,7 +441,8 @@
   <div class="settings-grid">
 
     <div class="setting-group">
-      <label>Model</label>
+      <label>Model <button class="info-icon" onclick="toggleInfo(event,'popover-model')">i</button></label>
+      <div class="info-popover" id="popover-model">The AI model that reads the retrieved regulation passages and writes your answer. GPT-4o mini is fast and cost-effective for most questions. GPT-4o is more thorough for nuanced legal analysis. o3-mini is a reasoning model — slower but better at complex multi-step questions.</div>
       <select id="model-select" onchange="updatePills()">
         {% for m in models %}
         <option value="{{ m.id }}" {% if m.id == 'gpt-4o-mini' %}selected{% endif %}>
@@ -430,7 +453,8 @@
     </div>
 
     <div class="setting-group">
-      <label>Retrievals (top-k)</label>
+      <label>Retrievals (top-k) <button class="info-icon" onclick="toggleInfo(event,'popover-topk')">i</button></label>
+      <div class="info-popover" id="popover-topk">How many regulation passages are fetched from the database per search round. Higher values give the AI more context but increase response time and cost. 5 is a good default; use 8–12 for broad topics or when answers seem incomplete.</div>
       <select id="topk-select" onchange="updatePills()">
         <option value="3">3 chunks</option>
         <option value="5" selected>5 chunks</option>
@@ -441,7 +465,8 @@
     </div>
 
     <div class="setting-group">
-      <label>Deep Think</label>
+      <label>Deep Think <button class="info-icon" onclick="toggleInfo(event,'popover-deepthink')">i</button></label>
+      <div class="info-popover" id="popover-deepthink">Runs multiple retrieval rounds instead of just one. After the initial search, the AI generates follow-up queries to find additional relevant passages. Best for complex questions that span multiple articles or require cross-referencing between CRR and COREP.</div>
       <div class="toggle-row">
         <label class="toggle-switch">
           <input type="checkbox" id="deep-think-toggle" onchange="onDeepThinkToggle()"/>
@@ -452,7 +477,8 @@
     </div>
 
     <div class="setting-group" id="iterations-group">
-      <label>Iterations</label>
+      <label>Iterations <button class="info-icon" onclick="toggleInfo(event,'popover-iterations')">i</button></label>
+      <div class="info-popover" id="popover-iterations">Number of additional search rounds Deep Think performs after the initial one. Each round lets the AI discover passages it missed. 2 is sufficient for most questions; use 3–4 for very broad regulatory topics that span many articles.</div>
       <select id="iterations-select" onchange="updatePills()">
         <option value="1">1 iteration</option>
         <option value="2" selected>2 iterations</option>
@@ -463,7 +489,8 @@
     </div>
 
     <div class="setting-group">
-      <label>Query Rewriting</label>
+      <label>Query Rewriting <button class="info-icon" onclick="toggleInfo(event,'popover-rewrite')">i</button></label>
+      <div class="info-popover" id="popover-rewrite">Before searching, rewrites your question using formal EU regulatory terminology — e.g. "banks" → "credit institutions", "capital" → "own funds". Most useful when HyDE is off or your phrasing differs from the regulation's exact language.</div>
       <div class="toggle-row">
         <label class="toggle-switch">
           <input type="checkbox" id="query-rewrite-toggle" onchange="updatePills()"/>
@@ -474,7 +501,8 @@
     </div>
 
     <div class="setting-group">
-      <label>HyDE Search</label>
+      <label>HyDE Search <button class="info-icon" onclick="toggleInfo(event,'popover-hyde')">i</button></label>
+      <div class="info-popover" id="popover-hyde">Instead of embedding your question directly, generates a short hypothetical regulation passage that would answer it, then searches for real passages similar to that hypothetical. Improves accuracy for semantic questions. Consider disabling when searching for a specific article by number.</div>
       <div class="toggle-row">
         <label class="toggle-switch">
           <input type="checkbox" id="hyde-toggle" checked onchange="updatePills()"/>
@@ -514,6 +542,18 @@
   const inputEl  = document.getElementById("input");
   const sendBtn  = document.getElementById("send-btn");
   const welcome  = document.getElementById("welcome");
+
+  // ── Info popovers ────────────────────────────────────────────────────
+  function toggleInfo(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById(id);
+    const wasVisible = el.classList.contains('visible');
+    document.querySelectorAll('.info-popover').forEach(p => p.classList.remove('visible'));
+    if (!wasVisible) el.classList.add('visible');
+  }
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.info-popover').forEach(p => p.classList.remove('visible'));
+  });
 
   // ── Settings ────────────────────────────────────────────────────────
   function toggleSettings() {
