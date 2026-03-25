@@ -6,8 +6,8 @@ from openai import OpenAI
 import psycopg2
 from pgvector.psycopg2 import register_vector
 
-# Detects explicit article references like "article 92", "Article 201(1)"
-_ARTICLE_RE = re.compile(r'\barticle\s+(\d+)\b', re.IGNORECASE)
+# Detects explicit article references like "article 92", "Article 429b", "Article 325aa"
+_ARTICLE_RE = re.compile(r'\barticle\s+(\d+[a-z]{0,2})\b', re.IGNORECASE)
 
 load_dotenv(override=True)
 
